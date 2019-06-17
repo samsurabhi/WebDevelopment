@@ -1,0 +1,25 @@
+
+<% include ../partials/header.ejs %>
+
+<div class="container width40">
+	<h3 style="text-align:center">You are welcome to add new campground to our Crescent Campgrounds site!!</h3>
+	<form method = "POST">
+		<div class = "form-group">
+			<label>Camp Site Name  </label>
+			<input class = "form-control" type = "text" name ="newcamp" placeholder ="Please enter campsite name">
+		</div>
+		<div class = "form-group" >
+			<label>Add Photo Link  </label>
+			<input class = "form-control" type = "text" name = "image" placeholder="Enter link to image of campsite">
+		</div>
+		<div class = "form-group">
+			<label>Discription</label>
+			<textarea class="form-control" name="disc" width=100% ></textarea>
+		</div>	
+		<button class= "btn btn-primary btn-md btn-block">Add</button><br>
+		<button class= "btn btn-info btn-md btn-block" type="reset">Reset</button>
+	</form>	
+
+</div>
+
+<% include ../partials/footer.ejs %>

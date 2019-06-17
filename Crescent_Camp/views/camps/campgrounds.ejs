@@ -1,0 +1,60 @@
+<% include ../partials/header.ejs %>
+
+<div class = container>
+	<div class = jumbotron my-4 style="text-align:center">
+		<h1 id="crescent">Crescent Campgrounds</h1>
+		<p id="tagline"><em>Breath taking Campgrounds around the World!</em></p>
+		<a href= "/" class = "btn btn-primary btn-lg" > Home Page</a>
+		<a href="/campgrounds/new" class = "btn btn-primary btn-lg">Add New </a>
+	</div>
+</div>
+
+<div class = container>
+	<div class="row" style="display:flex; flex-wrap:wrap;">
+		<% campgrounds.forEach(function(camp){ %>
+			<div class="col-lg-3 col-md-3 col-sm-6">
+				<div class="thumbnail">
+					<img src = <%= camp["image"] %> >
+					<div class = "caption">
+						 <%= camp["name"] %>
+						 <a href="/campgrounds/<%= camp._id %>" class = "btn btn-secondary btn-sm" name = "selectedCamp">More Info</a>
+					</div>
+				</div>
+			</div>
+		<% }) %>	
+	</div>
+
+<div class="row text-center">
+	<% if(pages>0){%>
+		<ul class="pagination text-center">
+			<%if(current == 1){ %>
+				<li class="disabled"><a>First</a></li>
+			<%} else{ %>	
+				<li><a href="/campgrounds">First</a></li>
+			<% } %>	
+			<% var i =( Number(current) > 5 ? Number(current) - 4 : 1) %>
+			<% if(i !== 1){%>
+				<li class="disabled"><a>...</a></li>	
+			<%}%>	
+			<%for(; i <=  (Number(current) + 4) && i < pages; i++){%>
+				<% if(i == current){%>
+					<li class ="active"><a><%=i%></a></li>
+				<% }else{ %>
+					<li><a href="/campgrounds?page=<%=i%>"><%=i %> </a></li>	
+				<% } %>	
+				<% if(i == Number(current) + 4 && i < pages){%>
+				<li class="disabled"><a>...</a></li>	
+				<%}%>	
+			<%}%>	
+			<%if(current == pages){ %>
+				<li class="disabled"><a>Last</a></li>
+			<% }else{ %>	
+				<li><a href="/campgrounds?page=<%=pages%>">Last</a></li>
+			<%}%>	
+		</ul>		
+	<% } %>
+</div>
+</div>
+
+
+<% include ../partials/footer.ejs %>

@@ -1,0 +1,24 @@
+{
+  "name": "crescent_camp",
+  "version": "1.0.0",
+  "description": "Practice app, creating package.json and defining routes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "practice",
+    "node",
+    "express"
+  ],
+  "author": "surabhi",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.13",
+    "nodemailer": "^6.2.1"
+  }
+}

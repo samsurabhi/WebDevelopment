@@ -1,0 +1,29 @@
+<% include ../partials/header.ejs %>
+
+<div class="container width40">
+	<h2>Register</h2>
+	<form method="POST">
+		<div class="form-group">
+			<label>Username</label>
+			<input class="form-control" type="text" name="username" placeholder="Please enter user name" >
+		</div>	
+		<div class="form-group">
+			<label>Email</label>
+			<input class="form-control" type="text" name="email" placeholder="Please enter email id" >
+		</div>	
+		<div class="form-group">
+			<label>Password</label>
+			<input class="form-control" type="password" name="password" placeholder="Please create password" >
+		</div>	
+		<div class="form-group">
+			<label>Hobbies</label>
+			<input class="form-control" type="text" name="hobbies"  >
+		</div>	
+		<input class="btn btn-primary btn-sm btn-block" type="submit" value="Submit">
+		<br>
+		<input class="btn btn-info btn-sm btn-block" type="reset" value="Reset">
+	</form>
+</div>
+<br><br>
+
+<% include ../partials/footer.ejs %>

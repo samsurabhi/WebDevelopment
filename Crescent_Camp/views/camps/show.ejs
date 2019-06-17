@@ -1,0 +1,27 @@
+<!-- FILE TO DISPLAY MORE INFO ABOUT THE SELECTED CAMPSITE -->
+
+<% include ../partials/header.ejs %>
+
+<div class = "container">
+	<div class = "row">
+		<div class = "col col-md-9">
+			<h2>Welcome to <%= foundCamp.name %> Campground</h2>
+			<img id="imgShow" style="width:80%;"  src = "<%= foundCamp.image%>">
+			<h5><strong>Added by: </strong><%=foundCamp.addedBy.username%></h5>
+			<p style="padding-top:10px"><%= foundCamp.disc %></p>
+		</div>	
+		<div class="col col-md-3">
+			<h2>Yelp Camp</h2>
+			<% if(currentUser && foundCamp.addedBy.id.equals(currentUser._id)){ %>
+			<a class="btn btn-info btn-sm btn-block m-2"    href="/campgrounds/<%=foundCamp._id%>/edit">Edit</a>
+			<form action="/campgrounds/<%=foundCamp._id%>?_method=DELETE"  method="POST"><br>
+				<input class="btn btn-info btn-sm btn-block my-5" type ="submit" value = "Delete">
+			</form>	<br>
+
+			<%}%>
+
+			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds">Back to Campgronds</a>
+		</div>	
+	</div>	
+</div>
+<% include ../partials/footer.ejs %>
