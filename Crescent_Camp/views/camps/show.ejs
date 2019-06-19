@@ -7,21 +7,89 @@
 		<div class = "col col-md-9">
 			<h2>Welcome to <%= foundCamp.name %> Campground</h2>
 			<img id="imgShow" style="width:80%;"  src = "<%= foundCamp.image%>">
-			<h5><strong>Added by: </strong><%=foundCamp.addedBy.username%></h5>
-			<p style="padding-top:10px"><%= foundCamp.disc %></p>
+			<article>
+				<h5><strong>Added by: </strong><%=foundCamp.addedBy.username%></h5>
+				<p style="padding-top:10px"><%= foundCamp.disc %></p>
+			</article>
+			<article>
+				<h3><i><%=foundCamp.addedBy.username%> shares his experience...</i>
+					<i class="fas fa-feather-alt"></i>
+				</h3>
+				<p><%= foundCamp.experience %></p>
+				<p><strong><i><%=foundCamp.addedBy.username%> gives it</i></strong>
+				<% if (foundCamp.recommend==5){%>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+				<%}%>
+				<% if(foundCamp.recommend==4){%>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star"></i>
+				<% } %>	
+				<% if(foundCamp.recommend==3){%>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				<% } %>	
+				<% if(foundCamp.recommend==2){%>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				<% } %>	
+				<% if(foundCamp.recommend==1){%>
+					<i class="fas fa-star gold"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				<% } %>	</p>
+
+
+
+			</article>
 		</div>	
 		<div class="col col-md-3">
-			<h2>Yelp Camp</h2>
+			<h3>Crescent Campgrounds</h3>
+			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds">Back to Campgronds</a><br>
 			<% if(currentUser && foundCamp.addedBy.id.equals(currentUser._id)){ %>
-			<a class="btn btn-info btn-sm btn-block m-2"    href="/campgrounds/<%=foundCamp._id%>/edit">Edit</a>
-			<form action="/campgrounds/<%=foundCamp._id%>?_method=DELETE"  method="POST"><br>
-				<input class="btn btn-info btn-sm btn-block my-5" type ="submit" value = "Delete">
-			</form>	<br>
-
+				<a class="btn btn-info btn-sm btn-block m-2"    href="/campgrounds/<%=foundCamp._id%>/edit">Edit</a><br>
+				<form action="/campgrounds/<%=foundCamp._id%>?_method=DELETE"  method="POST">
+					<input class="btn btn-info btn-sm btn-block my-5" type ="submit" value = "Delete">
+				</form>	<br>
+			<% } %>
+			<% if(foundCamp.site_link){ %>
+				<a class="btn btn-info btn-sm btn-block m-2" href="<%=foundCamp.site_link%>">Visit website</a>
+			<%}%><br>
+			<% if(foundCamp.map_link){ %>
+				<a class="btn btn-info btn-sm btn-block m-2" href="<%=foundCamp.map_link%>">Location</a>
 			<%}%>
-
-			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds">Back to Campgronds</a>
 		</div>	
 	</div>	
+	<section id="trails">
+			<h2 id="trail_head">Trails suggested by <i><%=foundCamp.addedBy.username%></i></h2>
+				<div  class="row">
+					<div class="col col-md-9">
+					<% foundCamp.trails.forEach(function(trail){%>
+						<h3><%=trail.trail_name%></h3>
+						<span>Length of the trail:<%=trail.dist%> </span>
+						<h4>What to expect:</h4>
+						<p><%=trail.expect%></p>
+						<p><%=trail.info%></p>
+					<%})%>	
+					</div>	
+					<div class="col col-md-3">	
+						<image src="" alt="Trail photo" class="width100"  style="border:2px solid blue;">
+					</div>
+				</div>
+	</section>
 </div>
 <% include ../partials/footer.ejs %>

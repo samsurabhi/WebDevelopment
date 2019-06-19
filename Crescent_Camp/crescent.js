@@ -16,9 +16,9 @@ var Camp = require("./models/Camp");
 var User = require("./models/User");
 var	campRoutes = require("./routes/camps");
 var authRoutes = require("./routes/auth");
+
 var app = express();
 
-var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 
@@ -43,9 +43,9 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
 	res.locals.error=req.flash("error");
-	console.log("yelp.js - ",res.locals.error);
+	console.log("Crescent.js - ",res.locals.error);
 	res.locals.success=req.flash("success");
-	console.log("yelp.js -", res.locals.success);
+	console.log("Crescent.js -", res.locals.success);
 	next();
 })
 
@@ -53,9 +53,15 @@ app.use(function(req, res, next){
 app.use(campRoutes);
 app.use(authRoutes);
 
-mongoose.connect("mongodb://localhost:32017/cresent_camp",{useNewUrlParser:true});
+
+mongoose.connect("mongodb://localhost:32017/crescent_camp",{useNewUrlParser:true});
 
 
-app.listen(3000, function(){
-	console.log("Server listening at PORT 3000 for Crescent campgrounds site...");
+app.listen(3000, function(err){
+	if(err)
+		console.log("Can not run server");
+	else
+		console.log("Server listening at PORT 3000 for Crescent campgrounds site...");
 })
+
+

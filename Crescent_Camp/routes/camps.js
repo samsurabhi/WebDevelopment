@@ -6,6 +6,11 @@ var router	= express.Router();
 var Camp 	=require("../models/Camp");
 var middleware =	require("../middleware/index");
 
+var async = require("async");
+var nodemailer = require("nodemailer");
+var crypto = require("crypto");
+var Contact = require("../models/Contact");
+
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
 	next();
@@ -15,7 +20,7 @@ router.use(function(req, res, next){
 router.get("/", function(req, res){
 	res.render("landing.ejs");
 })
-//PAGINATION TRIAL==================
+//DISPLAY ALL CAMPGROUNDS WITH PAGINATION
 router.get("/campgrounds", function(req, res, next){
 	var pageQuery = parseInt(req.query.page);
 	var page = pageQuery ? pageQuery : 1;
@@ -44,28 +49,113 @@ router.get("/campgrounds/about", function(req, res){
 router.get("/campgrounds/contact", function(req,res){
 	res.render("camps/contact.ejs");
 })
+
+router.post("/campgrounds/contact", function(req, res,next){
+	console.log("Inside post contact")
+	
+		function hi(){
+			var smtpTransport = nodemailer.createTransport({
+				service:"Gmail",
+				auth:{
+					user:"nahakmohak@gmail.com",
+					pass:process.env.GMAILPW
+				}
+			});
+
+			var mailOptions = {
+				to: "surabhi.mirajkar@gmail.com",
+				
+				subject: req.body.subject,
+				text: req.body.question
+			}
+			smtpTransport.sendMail(mailOptions,function(err){
+				console.log("Error sending mail",err);
+				next();
+			})
+		}
+		hi();
+	res.redirect("/campgrounds");
+})
+
+
 //FORM TO ADD NEW CAMPGROUND
 router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 	res.render("camps/new.ejs")
 })
 
-//ADD NEWLY AADED CAMPGROUND TO DB AND DISPLAY ALL CAMPGROUNDS
-router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
-	var newSite = req.body.newcamp;
+//ADD NEWLY ADDED CAMPGROUND TO DB AND DISPLAY ALL CAMPGROUNDS
+ router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
+ 	var newSite = req.body.newcamp;
 	var newPhoto = req.body.image;
 	var disc = req.body.disc;
-	var addedBy = {id : req.user._id, username : req.user.username}
-	var newCampsite = {name: newSite, image: newPhoto, disc : disc, addedBy: addedBy} 
-	
-	Camp.create(newCampsite, function(err,camps){
-		if(err)
+	var exp = req.body.experience;
+	var rec = req.body.recommend;
+	var site_link = req.body.site_link;
+	var map_link = req.body.map_link;
+	var addedBy = {id : req.user._id, username : req.user.username};
+	var trail = {
+				trail_name:req.body.trail_name,
+				dist:req.body.dist,
+				expect:req.body.expect,
+				info:req.body.info
+			};
+	console.log("req.body.info "+req.body.info);
+	console.log(`Trail - ${trail.info}`);
+ 	var newCamp = new Camp({
+ 			name: newSite,
+			image: newPhoto, 
+			disc : disc,
+			experience:exp,
+			site_link: site_link,
+			map_link: map_link,
+			recommend: rec, 
+			addedBy: addedBy,
+ 	});
+ 	newCamp.trails.push(trail);
+ 	//newCamp.trails.push({trail_name:req.body.trail_name, dist:req.body.dist, expect:req.body.expect, info:req.body.info});
+ 	newCamp.save(function(err, camp){
+ 		if(err)
 			console.log(err);
 		else{
-			console.log("User added new camp site  " +  newCampsite);
+			console.log("User added new camp site  " +  camp);
 			res.redirect("/campgrounds");
 		}
-	} )
-})
+ })
+ });
+// router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
+// 	var newSite = req.body.newcamp;
+// 	var newPhoto = req.body.image;
+// 	var disc = req.body.disc;
+// 	var exp = req.body.experience;
+// 	var rec = req.body.recommend;
+// 	var site_link = req.body.site_link;
+// 	var map_link = req.body.map_link;
+// 	var addedBy = {id : req.user._id, username : req.user.username};
+// 	var trail = {trail_name: req.params.trail_name, info: req.params.info};
+// 	var newCampsite = {
+// 			name: newSite,
+// 			image: newPhoto, 
+// 			disc : disc,
+// 			experience:exp,
+// 			site_link: site_link,
+// 			map_link: map_link,
+// 			recommend: rec, 
+// 			addedBy: addedBy,
+
+// 	} 
+	
+// 	Camp.create(newCampsite, function(err,camps){
+// 		if(err)
+// 			console.log(err);
+// 		else{
+// 			console.log("User added new camp site  " +  newCampsite);
+// 			camps.trails.push(trail);
+// 			camps.save();
+// 			res.redirect("/campgrounds");
+// 		}
+// 	} )
+// })
+
 // EDIT CAMPGROUND IF AUTHENTICATED
 router.get("/campgrounds/:id/edit", middleware.isOwner, function(req, res){
 	Camp.findById(req.params.id, function(err, foundCamp){

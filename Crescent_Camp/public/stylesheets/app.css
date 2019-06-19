@@ -56,4 +56,15 @@ form{
 textarea.form-control{
 	height:250px;
 }
+.gold{
+	color: gold;
+}
+input[type="radio"]{
+	font-size: 1.3em;
+	color:red;
+}
+#trails{
+	background-color: seashell;
+}
+
 

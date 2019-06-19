@@ -113,7 +113,7 @@ router.post("/forgot", function(req,res, next){
 				to : user.email,
 				from : 'nahakmohak@gmail.com',
 				subject : "Password reset mail from Crescent Campgrounds",
-				text : "Click the link given to reset your password : 'http://"+req.headers.host+"/reset/"+token+" This is an auto generated mail."
+				text : "Hello "+user.username+"\n\n Click the link given to reset your password:\n\n 'http://"+req.headers.host+"/reset/"+token+"\n\n This is an auto generated mail."
 			};
 			smtpTransport.sendMail(mailOptions, function(err){
 				console.log("mail sent");
@@ -125,8 +125,9 @@ router.post("/forgot", function(req,res, next){
 		if(err){
 			return next(err);
 		}
-	res.flash("success", "check mailbox")	;
-	res.redirect("/forgot")	;	
+	console.log("Mail to reset your password has been sent. Please check your mailbox")	;
+	res.flash("success", "Mail to reset your password has been sent. Please check your mailbox");
+	res.redirect("/campgrounds")	;	
 	}
 })
 //RESET PASSWORD GET ROUTE
@@ -179,8 +180,8 @@ router.post("/reset/:token", function(req, res){
 			var mailOptions = {
 				to : user.email,
 				from : 'nahakmohak@gmail.com',
-				subject : 'Password changed at Crescent Campgrounds!',
-				text :"Hello, Your password has been reset sucessfully."
+				subject : 'Password reset confirmation mail from Crescent Campgrounds!',
+				text :"Hello "+ user.username + "\n\n Your password has been reset sucessfully.\n\n Thanks\n\n\n This is an auto generated email."
 			};
 			smtpTransport.sendMail(mailOptions, function(err){
 				req.flash("success", "Your password has been reset!!!");
