@@ -64,7 +64,7 @@ router.post("/campgrounds/contact", function(req, res,next){
 
 			var mailOptions = {
 				to: "surabhi.mirajkar@gmail.com",
-				
+				from: req.body.email,
 				subject: req.body.subject,
 				text: req.body.question
 			}
@@ -77,51 +77,85 @@ router.post("/campgrounds/contact", function(req, res,next){
 	res.redirect("/campgrounds");
 })
 
-
+var trail = [];
+var campsite = {} ;
+var flag = 1;
 //FORM TO ADD NEW CAMPGROUND
 router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
-	res.render("camps/new.ejs")
+	res.render("camps/new.ejs",{flag:flag})
 })
+
 
 //ADD NEWLY ADDED CAMPGROUND TO DB AND DISPLAY ALL CAMPGROUNDS
  router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
- 	var newSite = req.body.newcamp;
-	var newPhoto = req.body.image;
-	var disc = req.body.disc;
-	var exp = req.body.experience;
-	var rec = req.body.recommend;
-	var site_link = req.body.site_link;
-	var map_link = req.body.map_link;
-	var addedBy = {id : req.user._id, username : req.user.username};
-	var trail = {
+ // 	var newSite = req.body.newcamp;
+	// var newPhoto = req.body.image;
+	// var disc = req.body.disc;
+	// var exp = req.body.experience;
+	// var rec = req.body.recommend;
+	// var site_link = req.body.site_link;
+	// var map_link = req.body.map_link;
+	// var addedBy = {id : req.user._id, username : req.user.username};
+	var new_trail = {
 				trail_name:req.body.trail_name,
 				dist:req.body.dist,
 				expect:req.body.expect,
 				info:req.body.info
 			};
-	console.log("req.body.info "+req.body.info);
-	console.log(`Trail - ${trail.info}`);
- 	var newCamp = new Camp({
- 			name: newSite,
-			image: newPhoto, 
-			disc : disc,
-			experience:exp,
-			site_link: site_link,
-			map_link: map_link,
-			recommend: rec, 
-			addedBy: addedBy,
- 	});
- 	newCamp.trails.push(trail);
- 	//newCamp.trails.push({trail_name:req.body.trail_name, dist:req.body.dist, expect:req.body.expect, info:req.body.info});
- 	newCamp.save(function(err, camp){
- 		if(err)
-			console.log(err);
-		else{
-			console.log("User added new camp site  " +  camp);
-			res.redirect("/campgrounds");
-		}
- })
+	trail.push(new_trail);		
+	console.log("FLag before first if==1 :", flag);
+	if (flag==1){
+		campsite = {
+ 			name: req.body.newcamp,
+			image: req.body.image,
+			disc : req.body.disc,
+			experience:req.body.experience,
+			site_link: req.body.site_link,
+			map_link: req.body.map_link,
+			recommend: req.body.recommend,
+			addedBy: {id : req.user._id, username : req.user.username}
+ 		};
+ 		flag=0;
+	}	
+	else{
+ 	// var newCamp = new Camp({
+ 	// 		name: newSite,
+		// 	image: newPhoto, 
+		// 	disc : disc,
+		// 	experience:exp,
+		// 	site_link: site_link,
+		// 	map_link: map_link,
+		// 	recommend: rec, 
+		// 	addedBy: addedBy,
+ 	// });
+ 	console.log("Flag in else , should be 0: ", flag);
+ 	}
+ 	if(req.body.more_trails=="YES"){
+ 		res.render("camps/new.ejs",{flag:flag});
+	}
+	else{	console.log(campsite.name)
+			console.log(campsite);
+			var newCamp = new Camp(campsite);
+			trail.forEach(function(t){
+				newCamp.trails.push(t);
+			});
+	 		
+		 	newCamp.save(function(err, camp){
+		 		flag = 1;
+	 		if(err)
+				console.log(err);
+			else{
+				console.log("User added new camp site  " +  camp);
+				res.redirect("/campgrounds");
+			}
+ 		});
+ 	}
  });
+
+
+
+
+
 // router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
 // 	var newSite = req.body.newcamp;
 // 	var newPhoto = req.body.image;

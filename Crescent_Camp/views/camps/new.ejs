@@ -4,6 +4,9 @@
 <div class="container width40">
 	<h3>Share your experience and recommendations with camping lovers!!!</h3>
 	<form method = "POST">
+
+		<% if(flag==1){ %>
+
 		<div class = "form-group">
 			<label>Camp Site Name  </label>
 			<input class = "form-control" type = "text" name ="newcamp" placeholder ="Please enter campsite name">
@@ -38,6 +41,7 @@
 			<textarea class="form-control" name="disc" width=100% placeholder="Brief discription of the camp site." 	value="Camper didn't enter any discription about the place!!!" >
 			</textarea>
 		</div>	
+
 		<article class = "form-group">
 			<label>You can also share your enchanting experiences on various hiking trails near the campsite.</label>
 			<div class="form-group">
@@ -53,7 +57,42 @@
 				<input class = "form-control" type = "text" name = "expect" placeholder="flaura, fauna, dangers..."> 
 			</div>	
 				<textarea class="form-control" name="info" width=100% placeholder="Experience/ What to expect..."></textarea>
+
+			<div class="input-group">
+				<label>Would you like to add more trails?</label><br>
+				<input type=radio name="more_trails"  value="YES"><label>YES</label>
+				<input type=radio name="more_trails" checked value="NO"><label>NO</label>
+			</div>	
 		</article>	
+
+		<%}else{ %>
+
+
+		<article class = "form-group">
+			<label>You can also share your enchanting experiences on various hiking trails near the campsite.</label>
+			<div class="form-group">
+				<label>Trail Name</label>
+				<input class = "form-control" type = "text" name = "trail_name" placeholder="Trail name"> 
+			</div>	
+			<div class="form-group">
+				<label>Length</label>
+				<input class = "form-control" type = "text" name = "dist" placeholder="Distance in miles"> 
+			</div>	
+			<div class="form-group">
+				<label>What to expect</label>
+				<input class = "form-control" type = "text" name = "expect" placeholder="flaura, fauna, dangers..."> 
+			</div>	
+				<textarea class="form-control" name="info" width=100% placeholder="Experience/ What to expect..."></textarea>
+
+			<div class="input-group">
+				<label>Would you like to add more trails?</label><br>
+				<input type=radio name="more_trails"  value="YES"><label>YES</label>
+				<input type=radio name="more_trails" checked value="NO"><label>NO</label>
+			</div>	
+		</article>	
+
+		<%}%>
+
 		<button class= "btn btn-primary btn-md btn-block">Add</button><br>
 		<button class= "btn btn-info btn-md btn-block" type="reset">Reset</button>
 	</form>	
