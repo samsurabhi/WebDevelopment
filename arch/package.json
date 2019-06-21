@@ -1,0 +1,21 @@
+{
+  "name": "temple_architecture",
+  "version": "1.0.0",
+  "description": "categories and examples of variety of temple architectures",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "temple",
+    "temples",
+    "jain",
+    "hindu",
+    "ancient",
+    "shiv",
+    "god",
+    "goddess"
+  ],
+  "author": "surabhi m",
+  "license": "ISC"
+}

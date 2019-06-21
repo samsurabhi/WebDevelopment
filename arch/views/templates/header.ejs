@@ -1,0 +1,81 @@
+<!--HEADER FOR TEMPLE ARCHITECTURE WEBSITE IN TEMPLATES DIR -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>TEMPLE ARCITECTURE</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<style>
+		.navbar{
+				min-height:50px;
+				padding:0px;
+				}
+		body{
+			padding-top:70px;
+		}	
+		.jumbotron{
+			height:100px;
+			background-color:#914f4f;
+			color:#6295a2;
+			border-bottom:0;
+			border-top:0;
+
+		}	
+		.shwd{
+				box-shadow: 1px 1px 3px 2px #914f4f;}
+		.txtshwd{
+				text-shadow: 1px 1px 2px 2px red;
+		}		
+
+		#navimg{height:100px; width:140px; float:right;}
+		#indeximg{height:200px;}
+		#indexh2{
+			color:#6295a2;
+		 	}
+		.mybtn{
+				width:150px; height:30px; color:#914f4f; background:#6295a2;transition-duration:0.4s;
+				}
+		.mybtn:hover{
+				background:#914f4f; color:#6295a2;
+		}	
+		a{ color:#914f4f;}		
+	</style>		
+
+	</head>
+<body>
+<nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light shwd">
+	<div class="container">
+		  <a class="navbar-brand" href="#">TemplePicture </a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Add
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="/index/new">Add Category</a>
+		          <a class="dropdown-item" href="/index/new_temple">Add Temple</a>
+		          <a class="dropdown-item" href="#">Delete</a>
+		        </div>
+		      </li>
+		 </ul>
+		 <ul class="navbar-nav ml-auto">     
+		       	<li class="nav-item" ><a class="nav-link" href="#">Login  </a></li>
+		        <li class="nav-item" ><a class ="nav-link" href="#">  Sign-in</a></li>
+		 </ul>
+	     
+	    <form class="form-inline" action="/index/search"  method="POST" >
+		    <input class="form-control mr-sm-2" name="findme" value="" type="text" placeholder="Search" aria-label="Search">
+		    <button class="btn btn-outline-default my-2 my-sm-0" type="submit">Search</button>
+	  	</form>
+
+	  </div>
+	</div>  
+</nav>

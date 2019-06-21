@@ -1,0 +1,29 @@
+<!-- FORM TO ADD NEW CATEGORY -->
+
+<% include templates/header %>
+
+<div class= "container">
+	<div class="jumbotron">
+		<h1>Add New Category</h1>
+	</div>
+	<div>
+		<form action="/index" method="POST">
+		<div class="form-group">
+			<label>Category</label>
+			<input class="form-control" type="text" name="category[cateName]">
+		</div>	
+		<div class="form-group">
+			<label>Picture Link</label>
+			<input  class="form-control" type="text" name="category[sampleImg]">
+		</div>	
+		<div class="form-group">	
+			<label>Brief Discription</label>
+			<textarea class="form-control" name="category[discription]"></textarea>
+		</div>	
+			<button class="btn mybtn" type="Submit">Submit</button>
+			<button class="btn mybtn" type="Reset">Reset</button>
+		</form>	
+	</div>
+</div>	
+
+<% include templates/footer %>

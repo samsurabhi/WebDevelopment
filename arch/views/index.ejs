@@ -1,0 +1,27 @@
+<!-- INDEX PAGE TO DISPLAY ALL ARCH CATEGORIES -->
+
+<% include templates/header %>
+<div class="container">
+	<div class="jumbotron">
+		
+		<!-- <img id="navimg" src="https://www.photosforclass.com/download/flickr-31804634594"> -->
+		<h1>Temple Architectures</h1>
+	</div>
+	<div class="row">
+		<%categories.forEach(function(cate){ %>
+		<div class="col-lg-3 col-md-4">
+			<div class="card">
+
+				<h2  class="mx-1" id="indexh2"><%= cate.cateName%></h2>
+				<img id="indeximg" src="<%= cate.sampleImg %>">
+				<p class="mx-1"><%= cate.discription.substring(0,100) %></p>
+				<a class="mx-1" href="/index/<%=cate._id %>"> read more...</a>
+				
+				
+			</div>
+		</div>	
+		<% })%>
+	</div>
+</div>
+
+<% include templates/footer %>
