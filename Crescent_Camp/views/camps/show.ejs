@@ -59,7 +59,8 @@
 		</div>	
 		<div class="col col-md-3">
 			<h3>Crescent Campgrounds</h3>
-			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds">Back to Campgronds</a><br>
+			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds">Back to Campgrounds</a><br>
+			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds/new">Add New Campground</a><br>
 			<% if(currentUser && foundCamp.addedBy.id.equals(currentUser._id)){ %>
 				<a class="btn btn-info btn-sm btn-block m-2"    href="/campgrounds/<%=foundCamp._id%>/edit">Edit</a><br>
 				<form action="/campgrounds/<%=foundCamp._id%>?_method=DELETE"  method="POST">
@@ -74,21 +75,23 @@
 			<%}%>
 		</div>	
 	</div>	
-	<section id="trails">
-			<h2 id="trail_head">Trails suggested by <i><%=foundCamp.addedBy.username%></i></h2>
-				<div  class="row">
-					<div class="col col-md-9">
+	<section>
+			<h2 id="trail_head"><i class="fas fa-paw"></i> Trails suggested by <i><%=foundCamp.addedBy.username%></i> </h2>
+				<div  class="row" id="trails">
 					<% foundCamp.trails.forEach(function(trail){%>
-						<h3><%=trail.trail_name%></h3>
-						<span>Length of the trail:<%=trail.dist%> </span>
-						<h4>What to expect:</h4>
-						<p><%=trail.expect%></p>
+					<div class="col col-md-9" style="border-bottom:6px solid white">
+					
+						<h3><%=trail.trail_name%> <i class="fas fa-hiking"></i></h3>
+						<strong>Length of the trail:</strong> <span class="badge"> <%=trail.dist%>  miles</span>
+						<h4>What to expect: </h4>
+						<h5><strong><i><%=trail.expect%></strong></i></h5>
 						<p><%=trail.info%></p>
-					<%})%>	
+						
 					</div>	
 					<div class="col col-md-3">	
-						<image src="" alt="Trail photo" class="width100"  style="border:2px solid blue;">
+						<image src="<%=trail.photo_link%>" alt="Trail photo" class="width100"  style="">
 					</div>
+					<%})%>	
 				</div>
 	</section>
 </div>

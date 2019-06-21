@@ -88,19 +88,12 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 
 //ADD NEWLY ADDED CAMPGROUND TO DB AND DISPLAY ALL CAMPGROUNDS
  router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
- // 	var newSite = req.body.newcamp;
-	// var newPhoto = req.body.image;
-	// var disc = req.body.disc;
-	// var exp = req.body.experience;
-	// var rec = req.body.recommend;
-	// var site_link = req.body.site_link;
-	// var map_link = req.body.map_link;
-	// var addedBy = {id : req.user._id, username : req.user.username};
 	var new_trail = {
 				trail_name:req.body.trail_name,
 				dist:req.body.dist,
 				expect:req.body.expect,
-				info:req.body.info
+				info:req.body.info,
+				photo_link:req.body.photo_link
 			};
 	trail.push(new_trail);		
 	console.log("FLag before first if==1 :", flag);
@@ -118,23 +111,12 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
  		flag=0;
 	}	
 	else{
- 	// var newCamp = new Camp({
- 	// 		name: newSite,
-		// 	image: newPhoto, 
-		// 	disc : disc,
-		// 	experience:exp,
-		// 	site_link: site_link,
-		// 	map_link: map_link,
-		// 	recommend: rec, 
-		// 	addedBy: addedBy,
- 	// });
- 	console.log("Flag in else , should be 0: ", flag);
+
  	}
  	if(req.body.more_trails=="YES"){
  		res.render("camps/new.ejs",{flag:flag});
 	}
-	else{	console.log(campsite.name)
-			console.log(campsite);
+	else{	
 			var newCamp = new Camp(campsite);
 			trail.forEach(function(t){
 				newCamp.trails.push(t);
@@ -142,10 +124,13 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 	 		
 		 	newCamp.save(function(err, camp){
 		 		flag = 1;
-	 		if(err)
+	 		if(err){
+	 			req.flash("error","Please add campsite name!")
 				console.log(err);
+	 		}
 			else{
 				console.log("User added new camp site  " +  camp);
+				req.flash("success", "Your awesome campsite has been added!!!")
 				res.redirect("/campgrounds");
 			}
  		});
@@ -203,10 +188,15 @@ router.get("/campgrounds/:id/edit", middleware.isOwner, function(req, res){
 })
 router.put("/campgrounds/:id", middleware.isOwner, function(req, res){
 	Camp.findByIdAndUpdate(req.params.id, req.body.camp, function(err, data){
-		if(err)
-			res.send("<h2>Error:</h2>" + err);
-		else
+		if(err){
+			req.flash("error", "Error occured while updating!!!");
+			console.log("Error while updating ==>>", err);
+			res.redirect("/campgrounds/req.params.id/edit");
+		}
+		else{
+			req.flash("success", "Campsite updated successfully!!!")
 			res.redirect("/campgrounds/"+req.params.id);
+		}
 	})
 })
 //DELETE CAMPGROUND
@@ -216,7 +206,7 @@ router.delete("/campgrounds/:id",middleware.isOwner, function(req, res){
 		if(err)
 			res.send("Error occured while deleting: "+ err);
 		else{
-			
+			req.flash("success", "Campground deleted!!!")
 			res.redirect("/campgrounds");
 		}
 	})
@@ -228,8 +218,11 @@ router.get("/campgrounds/:id", function(req,res){
 	var id = req.params.id;
 	Camp.findById(id, function(err, foundCamp)
 		{
-		if(err)
+		if(err){
+			req.flash("error", "Campground not found or Error occured!!!")
 			console.log(err);
+			res.redirect("/campgrounds");
+		}
 	else{
 			console.log("User selected.." + foundCamp );
 			res.render("camps/show.ejs", {foundCamp: foundCamp})

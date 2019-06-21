@@ -8,7 +8,7 @@
 		<% if(flag==1){ %>
 
 		<div class = "form-group">
-			<label>Camp Site Name  </label>
+			<label>Camp Site Name *  </label>
 			<input class = "form-control" type = "text" name ="newcamp" placeholder ="Please enter campsite name">
 		</div>
 		<div class = "form-group" >
@@ -21,11 +21,11 @@
 		</div>	
 		<div class="input-group">
 			<label>How's your experience?</label><br>
-			<input type=radio name="recommend" checked value="5"><label>Excellent</label>
-			<input type=radio name="recommend" value="4"><label>Very Good</label>
-			<input type=radio name="recommend" value="3"><label>Good</label>
-			<input type=radio name="recommend" value="2"><label>Not Good</label>
-			<input type=radio name="recommend" value="1"><label>Bad</label>
+			<input type=radio name="recommend" checked value="5" class="r"><label> Excellent</label>
+			<input type=radio name="recommend" value="4"><label> Very Good</label>
+			<input type=radio name="recommend" value="3"><label> Good</label>
+			<input type=radio name="recommend" value="2"><label> Not Good</label>
+			<input type=radio name="recommend" value="1"><label> Bad</label>
 			
 		</div>	
 		<div class = "form-group" >
@@ -37,9 +37,8 @@
 			<input class = "form-control" type = "text" name = "map_link" placeholder="Enter Google map link to the campsite location.">
 		</div>
 		<div class = "form-group">
-			<label>Discription*</label>
-			<textarea class="form-control" name="disc" width=100% placeholder="Brief discription of the camp site." 	value="Camper didn't enter any discription about the place!!!" >
-			</textarea>
+			<label>Discription *</label>
+			<textarea class="form-control width100" name="disc"  placeholder="Please enter brief discription of the camp site." value="Camper did not enter any discription."></textarea>
 		</div>	
 
 		<article class = "form-group">
@@ -56,7 +55,11 @@
 				<label>What to expect</label>
 				<input class = "form-control" type = "text" name = "expect" placeholder="flaura, fauna, dangers..."> 
 			</div>	
-				<textarea class="form-control" name="info" width=100% placeholder="Experience/ What to expect..."></textarea>
+				<textarea class="form-control width100" name="info" placeholder="Experience/What flora founa to expect/ precautions to be taken..."></textarea>
+			<div class="form-group">
+				<label>Share a photo of trail</label>
+				<input class = "form-control" type = "text" name = "photo_link" placeholder="link to image..."> 
+			</div>		
 
 			<div class="input-group">
 				<label>Would you like to add more trails?</label><br>
@@ -69,7 +72,7 @@
 
 
 		<article class = "form-group">
-			<label>You can also share your enchanting experiences on various hiking trails near the campsite.</label>
+			<label id="trail">Wow!! You did lot of hiking!! Please tell us about one more trail!!</label>
 			<div class="form-group">
 				<label>Trail Name</label>
 				<input class = "form-control" type = "text" name = "trail_name" placeholder="Trail name"> 
@@ -82,7 +85,12 @@
 				<label>What to expect</label>
 				<input class = "form-control" type = "text" name = "expect" placeholder="flaura, fauna, dangers..."> 
 			</div>	
-				<textarea class="form-control" name="info" width=100% placeholder="Experience/ What to expect..."></textarea>
+				<textarea class="form-control" name="info" width=100% placeholder="Experience/ What flora founa to expect/ precautions to be taken..."></textarea>
+			<div class="form-group">
+				<label>Share a photo of trail</label>
+				<input class = "form-control" type = "text" name = "photo_link" placeholder="link to image..."> 
+			</div>		
+
 
 			<div class="input-group">
 				<label>Would you like to add more trails?</label><br>
