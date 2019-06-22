@@ -1,0 +1,38 @@
+<% include ../partials/header.ejs %>
+
+<div class="container width40">
+	<h3>Edit <%=camp.trails[0].trail_name%> trail</h3>
+	<form action="/campgrounds/<%=camp._id%>/trail/<%=camp.trails[0]._id%>?_method=PUT" method="POST">
+		<article class = "form-group">
+				
+				<div class="form-group">
+					<label>Trail Name</label>
+					<input class = "form-control" type = "text" name = "trail_name" value="<%=camp.trails[0].trail_name%>" > 
+				</div>	
+				<div class="form-group">
+					<label>Length in miles</label>
+					<input class = "form-control" type = "text" name = "dist"  value="<%=camp.trails[0].dist%>"> 
+				</div>	
+				<div class="form-group">
+					<label>What to expect</label>
+					<input class = "form-control" type = "text" name = "expect" value="<%=camp.trails[0].expect%>"> 
+				</div>	
+				<div class="form-group">
+					<label>Experience</label>
+					<textarea class="form-control width100" name="info" ><%=camp.trails[0].info%></textarea>
+				</div>	
+				<div class="form-group">
+					<label>Share a photo of trail</label>
+					<input class = "form-control" type = "text" name="photo_link" value="<%=camp.trails[0].photo_link%>"> 
+				</div>		
+				
+		</article>	
+
+		<button class= "btn btn-primary btn-md btn-block" type="submit">Edit</button><br>
+		<button class= "btn btn-info btn-md btn-block" type="reset">Reset</button>
+		<a class= "btn btn-info btn-md btn-block" href="/campgrounds">Cancel</a>
+	</form>
+
+</div>
+
+<% include ../partials/footer.ejs %>

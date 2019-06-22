@@ -19,6 +19,7 @@ var campSchema = new mongoose.Schema({
 	experience: String,
 	site_link: String,
 	map_link: String,
+	addedOn:  {type: Date, default :Date.now},
 	trails:[trailsSchema],
 	addedBy :{
 		id:{

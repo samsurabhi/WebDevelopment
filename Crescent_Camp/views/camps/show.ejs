@@ -8,7 +8,9 @@
 			<h2>Welcome to <%= foundCamp.name %> Campground</h2>
 			<img id="imgShow" style="width:80%;"  src = "<%= foundCamp.image%>">
 			<article>
-				<h5><strong>Added by: </strong><%=foundCamp.addedBy.username%></h5>
+				<h5><strong>Added by: </strong><%=foundCamp.addedBy.username%>
+					<span style="float:right"><strong>Added on: </strong><%=foundCamp.addedOn.toDateString() %></span>
+				</h5>
 				<p style="padding-top:10px"><%= foundCamp.disc %></p>
 			</article>
 			<article>
@@ -75,18 +77,23 @@
 			<%}%>
 		</div>	
 	</div>	
+	<%=foundCamp.trails.length %>
 	<section>
 			<h2 id="trail_head"><i class="fas fa-paw"></i> Trails suggested by <i><%=foundCamp.addedBy.username%></i> </h2>
 				<div  class="row" id="trails">
 					<% foundCamp.trails.forEach(function(trail){%>
 					<div class="col col-md-9" style="border-bottom:6px solid white">
-					
 						<h3><%=trail.trail_name%> <i class="fas fa-hiking"></i></h3>
 						<strong>Length of the trail:</strong> <span class="badge"> <%=trail.dist%>  miles</span>
 						<h4>What to expect: </h4>
 						<h5><strong><i><%=trail.expect%></strong></i></h5>
 						<p><%=trail.info%></p>
-						
+					
+						<a class="btn btn-info btn-sm m-2" href="/campgrounds/<%=foundCamp._id%>/edit/<%=trail._id%>">Edit</a><br>
+						<form class="d_form" action="/campgrounds/<%=foundCamp._id%>/trail/<%=trail._id%>?_method=DELETE" 	method="POST">
+							<input type="submit" class="btn btn-sm btn-info  m-2" value="Delete">
+						</form>
+
 					</div>	
 					<div class="col col-md-3">	
 						<image src="<%=trail.photo_link%>" alt="Trail photo" class="width100"  style="">
@@ -94,5 +101,6 @@
 					<%})%>	
 				</div>
 	</section>
+
 </div>
 <% include ../partials/footer.ejs %>

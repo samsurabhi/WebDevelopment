@@ -96,7 +96,6 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 				photo_link:req.body.photo_link
 			};
 	trail.push(new_trail);		
-	console.log("FLag before first if==1 :", flag);
 	if (flag==1){
 		campsite = {
  			name: req.body.newcamp,
@@ -106,6 +105,7 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 			site_link: req.body.site_link,
 			map_link: req.body.map_link,
 			recommend: req.body.recommend,
+			
 			addedBy: {id : req.user._id, username : req.user.username}
  		};
  		flag=0;
@@ -129,7 +129,7 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 				console.log(err);
 	 		}
 			else{
-				console.log("User added new camp site  " +  camp);
+				console.log("User added new camp site  " +  camp.name);
 				req.flash("success", "Your awesome campsite has been added!!!")
 				res.redirect("/campgrounds");
 			}
@@ -138,48 +138,13 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
  });
 
 
-
-
-
-// router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
-// 	var newSite = req.body.newcamp;
-// 	var newPhoto = req.body.image;
-// 	var disc = req.body.disc;
-// 	var exp = req.body.experience;
-// 	var rec = req.body.recommend;
-// 	var site_link = req.body.site_link;
-// 	var map_link = req.body.map_link;
-// 	var addedBy = {id : req.user._id, username : req.user.username};
-// 	var trail = {trail_name: req.params.trail_name, info: req.params.info};
-// 	var newCampsite = {
-// 			name: newSite,
-// 			image: newPhoto, 
-// 			disc : disc,
-// 			experience:exp,
-// 			site_link: site_link,
-// 			map_link: map_link,
-// 			recommend: rec, 
-// 			addedBy: addedBy,
-
-// 	} 
-	
-// 	Camp.create(newCampsite, function(err,camps){
-// 		if(err)
-// 			console.log(err);
-// 		else{
-// 			console.log("User added new camp site  " +  newCampsite);
-// 			camps.trails.push(trail);
-// 			camps.save();
-// 			res.redirect("/campgrounds");
-// 		}
-// 	} )
-// })
-
 // EDIT CAMPGROUND IF AUTHENTICATED
 router.get("/campgrounds/:id/edit", middleware.isOwner, function(req, res){
 	Camp.findById(req.params.id, function(err, foundCamp){
-		if(err)
+		if(err){
+			console.log("No campground found by findById() at edit route.")
 			res.send("Error occured: " + err);
+		}
 		else{
 			res.render("camps/edit.ejs",{camp : foundCamp});
 		}
@@ -199,6 +164,41 @@ router.put("/campgrounds/:id", middleware.isOwner, function(req, res){
 		}
 	})
 })
+
+//EDIT TRAIL
+router.get("/campgrounds/:id/edit/:trail_id", middleware.isOwner, function(req, res){
+	Camp.findOne({_id:req.params.id,'trails._id':req.params.trail_id},{'trails.$':1}, function(err,camp){
+		if(err){
+			res.send("Error",err);
+		}
+		else{
+			console.log(camp)	;
+			res.render("camps/edit_trail.ejs",{camp:camp});
+		}
+	})
+})
+
+//PUT /UPDATE TRAIL
+router.put("/campgrounds/:id/trail/:trail_id", middleware.isOwner, function(req, res){
+	Camp.findOneAndUpdate({_id:req.params.id,'trails._id':req.params.trail_id}, 
+		{$set:{'trails.$.trail_name':req.body.trail_name,
+				'trails.$.dist':req.body.dist,
+				'trails.$.expect':req.body.expect,
+				'trails.$.info':req.body.info,
+				'trails.$.photo_link':req.body.photo_link
+			}}, function(err, data){
+		if(err){
+			res.send("Error updating trail");
+		}
+		else{
+			req.flash("success","Trail updated!");
+			console.log("Trail updated");
+			res.redirect("/campgrounds/"+req.params.id);
+		}
+	})
+	
+})
+
 //DELETE CAMPGROUND
 router.delete("/campgrounds/:id",middleware.isOwner, function(req, res){
 	console.log("Inside delete function")
@@ -212,6 +212,25 @@ router.delete("/campgrounds/:id",middleware.isOwner, function(req, res){
 	})
 })
 
+//DELETE TRAIL
+router.delete("/campgrounds/:id/trail/:trail_id", middleware.isOwner, function(req, res){
+	Camp.findOneAndUpdate({_id:req.params.id},
+		{
+			$pull:{trails:{_id:req.params.trail_id}}
+
+		}, function(err){
+		if(err){
+			res.send("Error while deleting");
+			console.log(err);
+		}else{
+
+			req.flash("success", "Trail deleted!");
+			res.redirect("/campgrounds");
+		}
+	})
+})
+
+
 //****************will not go here ..as it will go to campgrounds/:page !!!
 // SHOW DETAIL INFO ABOUT SELECTED CAMPGROUND
 router.get("/campgrounds/:id", function(req,res){
@@ -224,12 +243,11 @@ router.get("/campgrounds/:id", function(req,res){
 			res.redirect("/campgrounds");
 		}
 	else{
-			console.log("User selected.." + foundCamp );
+			console.log("User selected.." + foundCamp.name );
 			res.render("camps/show.ejs", {foundCamp: foundCamp})
 		}
 	})
 });
-
 
 
 module.exports = router;

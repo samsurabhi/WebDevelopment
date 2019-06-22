@@ -13,10 +13,33 @@
 			<input class = "form-control" type = "text" name = "camp[image]" value="<%=camp.image%>">
 		</div>
 		<div class = "form-group">
+			<label>Share your experience!</label>
+			<textarea class="form-control" name="camp[experience]" width=100% ><%=camp.experience%></textarea>
+		</div>	
+		<div class="input-group">
+			<label>How's your experience?</label><br>
+			<input type=radio name="camp[recommend]" checked value="5" class="r"><label> Excellent</label>
+			<input type=radio name="camp[recommend]" value="4"><label> Very Good</label>
+			<input type=radio name="camp[recommend]" value="3"><label> Good</label>
+			<input type=radio name="camp[recommend]" value="2"><label> Not Good</label>
+			<input type=radio name="camp[recommend]" value="1"><label> Bad</label>
+		</div>	
+		<div class = "form-group" >
+			<label>Link to Website </label>
+			<input class = "form-control" type = "text" name="camp[site_link]" value="<%=camp.site_link%>">
+		</div>
+		<div class = "form-group" >
+			<label>Google map link  </label>
+			<input class = "form-control" type = "text" name="camp[map_link]" value="<%=camp.map_link%>">
+		</div>
+		<div class = "form-group">
 			<label>Discription</label>
 			<textarea class="form-control" name="camp[disc]"  width=100% height=400px ><%=camp.disc%></textarea>
 		</div>	
-		<button class= "btn btn-primary btn-md btn-block">Submit</button>
+
+
+		<button class= "btn btn-primary btn-md btn-block">Submit</button><br>
+		<button class= "btn btn-info btn-md btn-block" type="reset">Reset</button>
 	</form>	
 
 </div>
