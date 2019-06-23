@@ -22,11 +22,23 @@ router.get("/", function(req, res){
 })
 //DISPLAY ALL CAMPGROUNDS WITH PAGINATION
 router.get("/campgrounds", function(req, res, next){
+		
+	var search = req.query.search;
+	console.log(`Search ${search}`);
+	if(search=="" || search==undefined){
+		search = {};
+		
+	}
+	else{
+		console.log(`Search ${search}`);
+		search = {name:{$regex:search, $options: 'ig'}};
+		
+	}
 	
 	var pageQuery = parseInt(req.query.page);
 	var page = pageQuery ? pageQuery : 1;
 	var perPage = 4 ;
-	Camp.find({})
+	Camp.find(search)
 		.skip((perPage * page) - perPage)
 		.limit(perPage)
 		.exec(function(err, campgrounds){

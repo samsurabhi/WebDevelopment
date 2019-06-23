@@ -6,6 +6,7 @@ body,html{
 
 #landing-header h1{
 	color: #fff;
+	margin-bottom: 30px;
 }
 
 
@@ -24,9 +25,10 @@ body,html{
 	text-align: center;
 	position: relative;
 	padding-top: 40vh;
+
 }
 .btn-warning:hover{
-box-shadow: 4px 4px 25px;
+box-shadow: 4px 4px 25px, -4px -4px 25px;
 }
 
 

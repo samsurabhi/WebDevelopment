@@ -72,16 +72,25 @@ h2, h3, h4{
 	padding-right: 250px;
 
 }
+#crescent-nav{
+	font-family: Boogaloo;
+	font-size: 2.2em;
+	text-shadow: 1px 1px snow,;
+}
 #crescent{
 	font-family: Boogaloo;
-	font-size: 3em;
+	font-size: 4em;
+	text-shadow: 1px 1px snow, -1px -1px 2px seashell;
 	}
 #crescent:hover{
+	text-shadow: 2px 2px 15px mediumblue;
+} 
+#crescent-nav:hover{
 	text-shadow: 2px 2px 10px lightyellow;
 	
 }
 #tagline{
-	font-family: Great Vibes;
+	font-family: Caveat;
 	font-size: 2em;
 }
 #about{
