@@ -1,7 +1,7 @@
 <% include ../partials/header.ejs %>
 
 <div class="container width40">
-	<h3>Edit <%=camp.trails[0].trail_name%> trail</h3>
+	<h3>Edit  &quot <%=camp.trails[0].trail_name%>&quot  trail</h3>
 	<form action="/campgrounds/<%=camp._id%>/trail/<%=camp.trails[0]._id%>?_method=PUT" method="POST">
 		<article class = "form-group">
 				
@@ -28,9 +28,9 @@
 				
 		</article>	
 
-		<button class= "btn btn-primary btn-md btn-block" type="submit">Edit</button><br>
-		<button class= "btn btn-info btn-md btn-block" type="reset">Reset</button>
-		<a class= "btn btn-info btn-md btn-block" href="/campgrounds">Cancel</a>
+		<input class="btn btn-primary btn-sm width33" type="submit" value="Submit">
+		<input class="btn btn-info btn-sm width33" type="reset" value="Reset">
+		<a class= "btn btn-warning btn-sm width33" href="/campgrounds">Cancel</a>
 	</form>
 
 </div>

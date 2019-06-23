@@ -1,11 +1,12 @@
 <% include ../partials/header.ejs %>
 
-<div class = container>
-	<div class = "jumbotron my-4 text-center">
+<div class = "container" id="head">
+	
+
 		<h1 id="crescent">Crescent Campgrounds</h1>
 		<p id="tagline"><em>Inspire others! Share your experience!</em></p>
-		<a href="/campgrounds/new" class = "btn btn-primary btn-md">Add New Campsite</a>
-	</div>
+		<a href="/campgrounds/new" class = "btn btn-primary btn-md">Add New</a>
+	
 </div>
 
 <div class = container>
@@ -16,7 +17,7 @@
 					<img src = <%= camp["image"] %> >
 					<div class = "caption">
 						 <%= camp["name"] %>
-						 <a href="/campgrounds/<%= camp._id %>" class = "btn btn-secondary btn-sm" name = "selectedCamp"><small>More Info</small></a>
+						 <a href="/campgrounds/<%= camp._id %>" class = "btn btn-info btn-xs" name = "selectedCamp"><small>More Info</small></a>
 					</div>
 				</div>
 			</div>

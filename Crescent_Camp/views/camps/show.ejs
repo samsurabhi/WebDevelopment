@@ -61,23 +61,24 @@
 		</div>	
 		<div class="col col-md-3">
 			<h3>Crescent Campgrounds</h3>
-			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds">Back to Campgrounds</a><br>
-			<a class="btn btn-info btn-sm btn-block m-2" href ="/campgrounds/new">Add New Campground</a><br>
+			<a class="btn btn-info btn-md btn-block m-2" href ="/campgrounds">Back to Campgrounds</a><br>
+			<a class="btn btn-info btn-md btn-block m-2" href ="/campgrounds/new">Add</a><br>
 			<% if(currentUser && foundCamp.addedBy.id.equals(currentUser._id)){ %>
-				<a class="btn btn-info btn-sm btn-block m-2"    href="/campgrounds/<%=foundCamp._id%>/edit">Edit</a><br>
+				<a class="btn btn-info btn-md btn-block m-2"    href="/campgrounds/<%=foundCamp._id%>/edit">Edit</a><br>
 				<form action="/campgrounds/<%=foundCamp._id%>?_method=DELETE"  method="POST">
-					<input class="btn btn-info btn-sm btn-block my-5" type ="submit" value = "Delete">
+					<input class="btn btn-info btn-md btn-block my-5" type ="submit" value = "Delete">
 				</form>	<br>
 			<% } %>
 			<% if(foundCamp.site_link){ %>
-				<a class="btn btn-info btn-sm btn-block m-2" href="<%=foundCamp.site_link%>">Visit website</a>
+				<a class="btn btn-info btn-md btn-block m-2" href="<%=foundCamp.site_link%>">Visit website</a>
 			<%}%><br>
 			<% if(foundCamp.map_link){ %>
-				<a class="btn btn-info btn-sm btn-block m-2" href="<%=foundCamp.map_link%>">Location</a>
+				<a class="btn btn-info btn-md btn-block m-2" href="<%=foundCamp.map_link%>">Location</a>
 			<%}%>
 		</div>	
 	</div>	
-	<%=foundCamp.trails.length %>
+	
+	<% if(foundCamp.trails.length>0){ %>
 	<section>
 			<h2 id="trail_head"><i class="fas fa-paw"></i> Trails suggested by <i><%=foundCamp.addedBy.username%></i> </h2>
 				<div  class="row" id="trails">
@@ -89,9 +90,9 @@
 						<h5><strong><i><%=trail.expect%></strong></i></h5>
 						<p><%=trail.info%></p>
 					
-						<a class="btn btn-info btn-sm m-2" href="/campgrounds/<%=foundCamp._id%>/edit/<%=trail._id%>">Edit</a><br>
-						<form class="d_form" action="/campgrounds/<%=foundCamp._id%>/trail/<%=trail._id%>?_method=DELETE" 	method="POST">
-							<input type="submit" class="btn btn-sm btn-info  m-2" value="Delete">
+						<a class="btn btn-info btn-xs m-2 btn-trail" href="/campgrounds/<%=foundCamp._id%>/edit/<%=trail._id%>">Edit</a>
+						<form id="deleteform" action="/campgrounds/<%=foundCamp._id%>/trail/<%=trail._id%>?_method=DELETE" 	method="POST">
+							<input type="submit" class="btn btn-danger btn-xs btn-trail m-2" value="Delete">
 						</form>
 
 					</div>	
@@ -101,6 +102,7 @@
 					<%})%>	
 				</div>
 	</section>
+	<% } %>
 
 </div>
 <% include ../partials/footer.ejs %>

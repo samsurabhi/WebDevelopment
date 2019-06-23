@@ -22,6 +22,7 @@ router.get("/", function(req, res){
 })
 //DISPLAY ALL CAMPGROUNDS WITH PAGINATION
 router.get("/campgrounds", function(req, res, next){
+	
 	var pageQuery = parseInt(req.query.page);
 	var page = pageQuery ? pageQuery : 1;
 	var perPage = 4 ;
@@ -88,6 +89,7 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 
 //ADD NEWLY ADDED CAMPGROUND TO DB AND DISPLAY ALL CAMPGROUNDS
  router.post("/campgrounds/new",middleware.isLoggedIn, function(req, res){
+	if(req.body.trail_name!==""){
 	var new_trail = {
 				trail_name:req.body.trail_name,
 				dist:req.body.dist,
@@ -95,7 +97,8 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
 				info:req.body.info,
 				photo_link:req.body.photo_link
 			};
-	trail.push(new_trail);		
+	trail.push(new_trail);	
+	}	
 	if (flag==1){
 		campsite = {
  			name: req.body.newcamp,
@@ -111,17 +114,18 @@ router.get("/campgrounds/new",middleware.isLoggedIn, function(req,res){
  		flag=0;
 	}	
 	else{
-
+		//Do Nothing.
  	}
  	if(req.body.more_trails=="YES"){
  		res.render("camps/new.ejs",{flag:flag});
 	}
 	else{	
 			var newCamp = new Camp(campsite);
+			
 			trail.forEach(function(t){
 				newCamp.trails.push(t);
 			});
-	 		
+	 		trail = [];
 		 	newCamp.save(function(err, camp){
 		 		flag = 1;
 	 		if(err){

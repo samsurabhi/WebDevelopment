@@ -2,9 +2,9 @@
 <% include ../partials/header.ejs %>
 
 <div class="container width40">
-	<h3>Share your experience and recommendations with camping lovers!!!</h3>
+	
 	<form method = "POST">
-
+		<h3>Share your experience and recommendations with camping lovers!!!</h3>
 		<% if(flag==1){ %>
 
 		<div class = "form-group">
@@ -41,7 +41,7 @@
 		</div>	
 
 		<article class = "form-group">
-			<label>You can also share your enchanting experiences on various hiking trails near the campsite.</label>
+			<h4>You can also share your enchanting experiences on various hiking trails near the campsite.</h4>
 			<div class="form-group">
 				<label>Trail Name</label>
 				<input class = "form-control" type = "text" name = "trail_name" placeholder="Trail name"> 
@@ -71,7 +71,7 @@
 
 
 		<article class = "form-group">
-			<label id="trail">Wow!! You did lot of hiking!! Please tell us about one more trail!!</label>
+			<h3>Wow!! You did lot of hiking!! Please tell us about one more trail!!</h3>
 			<div class="form-group">
 				<label>Trail Name</label>
 				<input class = "form-control" type = "text" name = "trail_name" placeholder="Trail name"> 
@@ -84,7 +84,10 @@
 				<label>What to expect</label>
 				<input class = "form-control" type = "text" name = "expect" placeholder="flaura, fauna, dangers..."> 
 			</div>	
+			<div class="form-group">
+				<label>How's it!?</label>
 				<textarea class="form-control" name="info" width=100% placeholder="Experience/ What flora founa to expect/ precautions to be taken..."></textarea>
+			</div>	
 			<div class="form-group">
 				<label>Share a photo of trail</label>
 				<input class = "form-control" type = "text" name = "photo_link" placeholder="link to image..."> 
@@ -99,9 +102,10 @@
 		</article>	
 
 		<%}%>
+		<input class="btn btn-primary btn-sm width33" type="submit" value="Add">
+		<input class="btn btn-info btn-sm width33" type="reset" value="Reset">
+		<a class= "btn btn-warning btn-sm width33" href="/campgrounds">Cancel</a>
 
-		<button class= "btn btn-primary btn-md btn-block">Add</button><br>
-		<button class= "btn btn-info btn-md btn-block" type="reset">Reset</button>
 	</form>	
 
 </div>
