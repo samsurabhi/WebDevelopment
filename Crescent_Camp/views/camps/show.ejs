@@ -70,7 +70,7 @@
 				</form>	<br>
 			<% } %>
 			<% if(foundCamp.site_link){ %>
-				<a class="btn btn-info btn-md btn-block m-2" href="<%=foundCamp.site_link%>">Visit website</a>
+				<a class="btn btn-info btn-md btn-block m-2" target="_blank" href="<%=foundCamp.site_link%>">Visit website</a>
 			<%}%><br>
 			<% if(foundCamp.map_link){ %>
 				<a class="btn btn-info btn-md btn-block m-2" href="<%=foundCamp.map_link%>">Location</a>
@@ -105,4 +105,5 @@
 	<% } %>
 
 </div>
+
 <% include ../partials/footer.ejs %>

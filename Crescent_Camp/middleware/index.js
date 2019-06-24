@@ -19,14 +19,14 @@ middlewareObj.isOwner = function(req, res, next){
 	if(req.isAuthenticated()){
 		Camp.findById(req.params.id, function(err, camp){
 			if(err){
-				res.flash("error", "Campground not found!")
+				req.flash("error", "Campground not found!")
 				res.redirect("/login");
 			}
 			else{ 
 				if(camp.addedBy.id.equals(req.user._id))
 				 	next();
 				 else{
-				 	res.flash("error", "You do not have permission to do that!!!")
+				 	req.flash("error", "You do not have permission to do that!!!")
 				 	res.redirect("back");
 				}
 			}

@@ -182,7 +182,7 @@ router.put("/campgrounds/:id", middleware.isOwner, function(req, res){
 })
 
 //EDIT TRAIL
-router.get("/campgrounds/:id/edit/:trail_id", middleware.isOwner, function(req, res){
+router.get("/campgrounds/:id/edit/:trail_id", middleware.isLoggedIn, middleware.isOwner, function(req, res){
 	Camp.findOne({_id:req.params.id,'trails._id':req.params.trail_id},{'trails.$':1}, function(err,camp){
 		if(err){
 			res.send("Error",err);
@@ -195,7 +195,7 @@ router.get("/campgrounds/:id/edit/:trail_id", middleware.isOwner, function(req, 
 })
 
 //PUT /UPDATE TRAIL
-router.put("/campgrounds/:id/trail/:trail_id", middleware.isOwner, function(req, res){
+router.put("/campgrounds/:id/trail/:trail_id",middleware.isLoggedIn, middleware.isOwner, function(req, res){
 	Camp.findOneAndUpdate({_id:req.params.id,'trails._id':req.params.trail_id}, 
 		{$set:{'trails.$.trail_name':req.body.trail_name,
 				'trails.$.dist':req.body.dist,
@@ -229,7 +229,7 @@ router.delete("/campgrounds/:id",middleware.isOwner, function(req, res){
 })
 
 //DELETE TRAIL
-router.delete("/campgrounds/:id/trail/:trail_id", middleware.isOwner, function(req, res){
+router.delete("/campgrounds/:id/trail/:trail_id", middleware.isLoggedIn, middleware.isOwner, function(req, res){
 	Camp.findOneAndUpdate({_id:req.params.id},
 		{
 			$pull:{trails:{_id:req.params.trail_id}}

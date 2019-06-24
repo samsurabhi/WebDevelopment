@@ -15,36 +15,15 @@ router.get("/register", function(req, res){
 	res.render("auth/register.ejs");
 });
 
-// router.post("/register", function(req, res){
-// 	username = req.body.username;
-// 	email = req.body.email;
-// 	hobbies = req.body.hobbies;
-// 	var newUser = {username:username, email:email, hobbies:hobbies};
-// 	User.register(newUser,req.body.password, function(err, user){
-// 		if(err){
-// 			//res.flash("error","Error registering");
-// 			return res.render("/register");
-// 		}
-// 		else{
-// 				passport.authenticate("local") (req, res, function(){
-// 				console.log("Authenticated user after registration.");
-// 				res.flash("success", "Welcome to Crescent Campgrounds!");
-// 				res.redirect("/campgrounds");
-// 			})
-// 		}
-// 	})
-// })
 router.post("/register", function(req, res){
 	var newUser = new User({username:req.body.username, email:req.body.email, hobbies:req.body.hobbies});
 	User.register(newUser, req.body.password, function(err, user){
 		if(err){
 			req.flash("error", err+" Error while registering");
 			res.redirect("/register");  
-			//return res.render("auth/register.ejs"); 
-			//flash message only works in redirect!!??
+			
 		}
 			passport.authenticate("local") (req, res, function(){
-			console.log("Authenticated user after registration.");
 			req.flash("success", "Welcome to Crescent Campgrounds!");
 			res.redirect("/campgrounds");
 
@@ -56,10 +35,12 @@ router.post("/register", function(req, res){
 //--------------------------------------------------------------//
 //LOGIN
 router.get("/login", function(req, res){
+	//console.log(failureFlash);
 	res.render("auth/login.ejs");
 })
 
-router.post("/login", passport.authenticate("local", { failureRedirect:"/login", failureFlash:"Invalid username or password."}),
+
+router.post("/login", passport.authenticate("local", { failureRedirect:"/login",failureFlash:true}),
 	function(req, res){
 		req.flash("success","Sucessfully logged you in. Welcome to Crescent Campgrounds!!!");
 		res.redirect("/campgrounds");

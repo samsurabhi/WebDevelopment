@@ -48,6 +48,7 @@ h2, h3, h4{
 .navbar-nav>li>a:hover{
 	text-shadow: 2px 2px 2px azure;
 }
+
 .alert{
 	font-size: 1.3em;
 	padding: 10px;
@@ -61,8 +62,9 @@ h2, h3, h4{
 	background-color: rosybrown;
 }
 
+@media only screen and (max-width: 2000px){
 #head{
-	height:60%;
+	height:58%;
 	width:100%;
 	background: url("../images/canyon.png");
 	background-repeat: no-repeat;
@@ -72,6 +74,36 @@ h2, h3, h4{
 	padding-right: 250px;
 
 }
+}
+
+@media only screen and (max-width: 1300px){
+	#head{
+	height:60%;
+	width:100%;
+	background: url("../images/Clouds.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-bottom: 40px;
+	text-align: right;
+	padding-right: 100px;
+	}
+}
+@media only screen and (max-width: 900px){
+	#head{
+	height:65%;
+	width:100%;
+	background: url("../images/Glacier.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-bottom: 40px;
+	text-align: right;
+	padding-right: 100px;
+	}
+}
+
+
+
+
 #crescent-nav{
 	font-family: Boogaloo;
 	font-size: 2.2em;
