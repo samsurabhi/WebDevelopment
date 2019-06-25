@@ -54,7 +54,18 @@ app.use(campRoutes);
 app.use(authRoutes);
 
 
-mongoose.connect("mongodb://localhost:32017/crescent_camp",{useNewUrlParser:true});
+//mongoose.connect("mongodb://localhost:32017/crescent_camp",{useNewUrlParser:true});
+//mongoose.connect(process.env.DATABASEURL,{useNewUrlParser:true});
+
+mongoose.connect(process.env.DATABASEURL, {
+	useNewUrlParser:true,
+	useCreateIndex:true
+}).then(()=>{
+	console.log("Connected to server");
+}).catch(err =>{
+	console.log(err);
+});
+
 
 
 app.listen(3000, function(err){
