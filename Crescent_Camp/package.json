@@ -4,7 +4,8 @@
   "description": "Site for sharing camping and trails experiences",
   "main": "crescent.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node crescent.js"
   },
   "keywords": [
     "campgrounds",
