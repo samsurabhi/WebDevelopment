@@ -67,12 +67,12 @@ mongoose.connect(process.env.DATABASEURL, {
 });
 
 
-
-app.listen(3000, function(err){
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function(err){
 	if(err)
 		console.log("Can not run server");
 	else
-		console.log("Server listening at PORT 3000 for Crescent campgrounds site...");
+		console.log(`Server listening at PORT ${PORT} for Crescent campgrounds site...`);
 })
 
 
