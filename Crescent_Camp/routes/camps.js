@@ -76,7 +76,7 @@ router.post("/campgrounds/contact", function(req, res,next){
 			});
 
 			var mailOptions = {
-				to: "surabhi.mirajkar@gmail.com",
+				to: "nahakmohak@gmail.com",
 				from: req.body.email,
 				subject: req.body.subject,
 				text: req.body.question
