@@ -7,13 +7,14 @@ body,html{
 #landing-header h1{
 	color: #fff;
 	margin-bottom: 30px;
+	text-shadow: 1px 1px 5px darkblue, -1px -1px 1px gray;
 }
 
 
 .bg{
 	color:#225588;
 	height: 100%;
-	background-image:  url("../images/LakeTent.png");
+	background-image:  url("../images/snow_white.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -24,7 +25,8 @@ body,html{
 	z-index: 1;
 	text-align: center;
 	position: relative;
-	padding-top: 40vh;
+	padding-top: 30vh;
+
 
 }
 .btn-warning:hover{

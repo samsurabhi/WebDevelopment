@@ -43,9 +43,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
 	res.locals.error=req.flash("error");
-	//console.log("Crescent.js - ",res.locals.error);
 	res.locals.success=req.flash("success");
-	//console.log("Crescent.js -", res.locals.success);
 	next();
 })
 

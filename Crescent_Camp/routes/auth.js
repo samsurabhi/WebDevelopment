@@ -35,12 +35,11 @@ router.post("/register", function(req, res){
 //--------------------------------------------------------------//
 //LOGIN
 router.get("/login", function(req, res){
-	//console.log(failureFlash);
 	res.render("auth/login.ejs");
 })
 
 
-router.post("/login", passport.authenticate("local", { failureRedirect:"/login",failureFlash:true}),
+router.post("/login", passport.authenticate("local", { failureRedirect:"/login", failureFlash:true}),
 	function(req, res){
 		req.flash("success","Sucessfully logged you in. Welcome to Crescent Campgrounds!!!");
 		res.redirect("/campgrounds");

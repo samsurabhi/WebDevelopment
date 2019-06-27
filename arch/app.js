@@ -13,9 +13,11 @@ var app = express();
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static(__dirname+"/public"));
+
 mongoose.connect("mongodb://localhost:32017/temples",{useNewUrlParser:true});
 
-//DEFINE SCHEMAS FOR CATEGORIES AND TEMPLES IN MODELS DIR AND GET THEM HERE
+//DEFINE SCHEMAS FOR CATEGORIES AND PLACES IN MODELS DIR AND GET THEM HERE
 
 var Category = require("./models/categories");
 var Temple = require("./models/temples");
@@ -173,14 +175,8 @@ app.delete("/index/:id", function(req, res){
 })
 
 
-
-
-
-
-
-
-
 //START NODE SERVER
-app.listen(3000, function(err){
-	console.log("Server started at 3000, for temples app........");
+const PORT = process.env.PORT || 3005;
+app.listen(PORT, function(err){
+	console.log(`Server listening at PORT ${PORT} for ancient architectures site ...`);
 })

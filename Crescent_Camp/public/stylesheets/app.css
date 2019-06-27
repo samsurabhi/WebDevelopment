@@ -7,7 +7,7 @@ body, html{
 	width: 25%;
 }
 .width33{
-	width:32.9%;
+	width:30%;
 	box-sizing: border-box;
 }
 
@@ -64,9 +64,9 @@ h2, h3, h4{
 
 @media only screen and (max-width: 2000px){
 #head{
-	height:58%;
+	height:60%;
 	width:100%;
-	background: url("../images/canyon.png");
+	background: url("../images/sky2.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin-bottom: 40px;
@@ -80,7 +80,7 @@ h2, h3, h4{
 	#head{
 	height:60%;
 	width:100%;
-	background: url("../images/Clouds.png");
+	background: url("../images/sky2.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin-bottom: 40px;
@@ -90,9 +90,9 @@ h2, h3, h4{
 }
 @media only screen and (max-width: 900px){
 	#head{
-	height:65%;
+	height:60%;
 	width:100%;
-	background: url("../images/Glacier.png");
+	background: url("../images/sunrise.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin-bottom: 40px;

@@ -92,22 +92,22 @@
 				<label>Share a photo of trail</label>
 				<input class = "form-control" type = "text" name = "photo_link" placeholder="link to image..."> 
 			</div>		
-
-
 			<div class="input-group">
 				<label>Would you like to add more trails?</label><br>
 				<input type=radio name="more_trails"  value="YES"><label>YES</label>
 				<input type=radio name="more_trails" checked value="NO"><label>NO</label>
 			</div>	
 		</article>	
-
 		<%}%>
-		<input class="btn btn-primary btn-sm width33" type="submit" value="Add">
-		<input class="btn btn-info btn-sm width33" type="reset" value="Reset">
-		<a class= "btn btn-warning btn-sm width33" href="/campgrounds">Cancel</a>
 
+		<div class="container width100" style="padding-left:0; padding-right:0">
+		<div class="row">
+			<input class="btn btn-primary btn-sm  col-md-4 col-xs-4" type="submit" value="Submit">
+			<input class="btn btn-info btn-sm  col-md-4 col-xs-4" type="reset" value="Reset">
+			<a class= "btn btn-warning btn-sm  col-md-4 col-xs-4" href="/campgrounds">Cancel</a>
+		</div>
+		</div>
 	</form>	
-
 </div>
 
 <% include ../partials/footer.ejs %>
