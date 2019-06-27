@@ -24,15 +24,12 @@ router.get("/", function(req, res){
 router.get("/campgrounds", function(req, res, next){
 		
 	var search = req.query.search;
-	console.log(`Search ${search}`);
 	if(search=="" || search==undefined){
 		search = {};
 		
 	}
 	else{
-		console.log(`Search ${search}`);
-		search = {name:{$regex:search, $options: 'ig'}};
-		
+			search = {name:{$regex:search, $options: 'ig'}};
 	}
 	
 	var pageQuery = parseInt(req.query.page);
