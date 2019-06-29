@@ -214,10 +214,11 @@ router.put("/campgrounds/:id/trail/:trail_id",middleware.isLoggedIn, middleware.
 
 //DELETE CAMPGROUND
 router.delete("/campgrounds/:id",middleware.isOwner, function(req, res){
-	console.log("Inside delete function")
 	Camp.findByIdAndRemove(req.params.id,  function(err){
-		if(err)
-			res.send("Error occured while deleting: "+ err);
+		if(err){
+			req.flash("error","Error occured while deleting: "+ err )
+			res.redirect("/campgrounds");
+		}
 		else{
 			req.flash("success", "Campground deleted!!!")
 			res.redirect("/campgrounds");

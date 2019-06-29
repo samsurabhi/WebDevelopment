@@ -10,7 +10,7 @@
 
 <div class="container">
 	<form  action="/index/new_temple" method="POST">
-		<label>Select Category</label>
+		<label>Select Category  </label>
 		<select name="temple[category]">
 			<% categories.forEach(function(cate){ %>
 				<option><%= cate.cateName %></option>
@@ -45,8 +45,8 @@
 			<label>Main Festival </label>
 			<input class="form-control" type ="text" name="temple[mainFestival]">			
 		</div>
-	<button class="btn mybtn">Submit</button>
-	<button class="btn mybtn">Reset</button>
+	<button class="mybtn">Submit</button>
+	<button class="mybtn">Reset</button>
 	</form>
 </div>
 <% include templates/footer %>

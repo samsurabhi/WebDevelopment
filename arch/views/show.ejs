@@ -3,40 +3,49 @@
 <% include templates/header %>
 <div class="container">
 	<div class="jumbotron">
-		<!--<img id="navimg" src="https://www.photosforclass.com/download/flickr-31804634594"> -->
 		<h1><%=category.cateName%></h1>
 	</div>
-		<img style="float:right; height:200px;" src="<%=category.sampleImg%>">
-		<%=category.discription%>
-	<a class="btn mybtn" href="/index/<%=category._id%>/edit">Edit</a>	
+		<div class="row">
+			<div class="col-md-2 col-xs-2">
+				<a href="/index/<%=category._id%>/edit">
+					<button class="mybtn ">Edit</button>
+				</a>	
+				<form class="form-inline" method="POST" action="/index/<%=category._id%>/delete?_method=DELETE" >
+					<input type="text" name="cateName" hidden value="<%=category.cateName%>">
+					<button class="mybtn">Delete</button>
+				</form>
+				<a href="/index/">
+					<button class="mybtn ">Back</button>
+				</a>	
+			</div>
+			<div class="col-md-10 col-xs-10">
+				<img id="showmainimg" src="<%=category.sampleImg%>">
+				<p><%=category.discription%></p>
+			</div>
+			
+		</div>
+	<hr>
 
-
-
-<hr>
-
-<div class="card">
-	
-		<% selectedCate.forEach(function(cate){ %>
-		<div class="media  border border-danger">
-				<img class="align-self-start mr-3" style="float:left; height:150px;" src="<%=cate.images%>">
+	<div class="card">
+	<% selectedCate.forEach(function(cate){ %>
+		<div class="media">
+				<img class="align-self-start mr-3" id="showsubimg" src="<%=cate.images%>">
 			<div class="media-body py-1">
 				<h4><%=cate.name%></h4>
 				<h6><%=cate.location.substring(0,100)%></h6>
-				<button class="mybtn">
-					<a href="/index/<%=cate._id%>/edit_temple">Edit</a>
-				</button>
-				<button class="mybtn txtshwd">
-					<a class="align-bottom txtshwd" href="/index/<%=cate._id%>/show_temple">Details</a>
-				</button>
+				<a href="/index/<%=cate._id%>/edit_temple">
+					<button class="mybtn">Edit</button>
+				</a>
+				<a class="align-bottom " href="/index/<%=cate._id%>/show_temple">
+					<button class="mybtn">Details</button>
+				</a>
 				<br>
-			</div>
+			</div> 
 		</div>	
-		<%})%>	
+	<%})%>	
 	</div>
 	
 </div>
-
-
 
 <% include templates/footer %>
 

@@ -43,8 +43,12 @@
 			<label>Main Festival </label>
 			<input class="form-control" type ="text" name="temple[mainFestival]" value="<%=editMe.mainFestival%>">			
 		</div>
-	<button class="btn secondary mybtn">Submit</button>
-	<button class="btn info mybtn">Reset</button>
+	<button class="mybtn" type="submit">Submit</button>
+	<button class="mybtn" type="reset">Reset</button>
+	<a class="align-bottom " href="/index/<%=editMe._id%>/show_temple">
+		<button class="mybtn" type="none">Back</button>
+	</a>
 	</form>
+
 </div>
 <% include templates/footer %>

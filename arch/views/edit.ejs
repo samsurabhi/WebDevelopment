@@ -3,7 +3,7 @@
 
 <div class= container>
 	<div class="jumbotron">
-		<h1>Edit Category</h1>
+		<h1>Edit Category:<strong> <%= category.cateName %></strong></h1>
 	</div>
 <div>
 
@@ -23,4 +23,8 @@
 	</div>
 	<button class="mybtn" type="Submit">Submit</button>
 	<button class="mybtn" type="Reset">Reset</button>
+	<a class="align-bottom " href="/index/<%=category._id%>">
+		<button class="mybtn" >Back</button>
+	</a>
 </form>	
+	

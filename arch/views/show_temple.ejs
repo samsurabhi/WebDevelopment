@@ -7,25 +7,26 @@
 		<!--<img id="navimg" src="https://www.photosforclass.com/download/flickr-31804634594"> -->
 		<h1><%=temple.name%></h1>
 	</div>
-	<div>
-		<img style="float:left; height:300px; padding-right:5px;" src="<%=temple.images%>">
-		<h6><span class="label label-success">Built-in <%=temple.builtIn%></span></h6>
-		<h4>Architecure and Specialities</h4>
-		<p><%=temple.arch_type%></p>
-		<p><%=temple.speciality%></p>
-		<strong>Location:</strong> <%=temple.location%><br>
-		<strong>Festivals:</strong><%=temple.mainFestival%><br>
-		<button class="mybtn">
-			<a href="/index/<%=temple._id%>/edit_temple">Edit</a>
-		</button>
-		<form action="/index/<%=temple._id%>?_method=DELETE" method="POST">
-			<button class="mybtn">Delete</button>
-		</form>
+	<div class="row">
+		<div class="col-md-2">
+			<a href="/index/<%=temple._id%>/edit_temple">
+				<button class="mybtn">Edit</button>
+			</a>
+			<form action="/index/<%=temple._id%>?_method=DELETE" method="POST">
+				<button class="mybtn">Delete</button>
+			</form>
+		</div>
+		<div class="col-md-10">
+			<img style="float:left; height:300px; padding-right:5px;" src="<%=temple.images%>">
+			<h6><span class="label label-success">Built-in <%=temple.builtIn%></span></h6>
+			<h4>Architecure and Specialities</h4>
+			<p><%=temple.arch_type%></p>
+			<p><%=temple.speciality%></p>
+			<strong>Location:</strong> <%=temple.location%><br>
+			<strong>Festivals:</strong><%=temple.mainFestival%><br>
+		</div>
 	</div>
 </div>
-
-
-
 
 <% include templates/footer %>
 
