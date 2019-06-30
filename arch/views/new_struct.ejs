@@ -1,0 +1,50 @@
+<!-- TO ADD NEW STRUCT INTO CATEGORY-->
+<% include templates/header %>
+
+<div class= container>
+	<div class="jumbotron">
+		<h1>Add New Struct</h1>
+	</div>
+
+<div>
+<div class="container">
+	<form  action="/index/new_struct" method="POST">
+		<label>Select Category  </label>
+		<select name="struct[category]">
+			<% categories.forEach(function(cate){ %>
+				<option><%= cate.cateName %></option>
+			<%})%>
+		</select>
+		<div class="form-group">
+			<label>Struct Name</label>
+			<input class="form-control" type ="text" name="struct[name]">	
+		</div>
+		<div class="form-group">
+			<label>Location</label>
+			<input class="form-control" type ="text" name="struct[location]">
+		</div>
+		<div class="form-group">
+			<label>Images</label>
+			<input class="form-control" type ="text" name="struct[images]">	
+		</div>
+		<div class="form-group">
+			<label>Type of Architecture </label>
+			<input class="form-control" type ="text" name="struct[arch_type]">
+		</div>
+		<div class="form-group">
+			<label>Buit-in </label>
+			<input class="form-control" type ="text" name="struct[builtIn]">	
+		</div>
+		<div class="form-group">
+			<label>Speciality</label>
+			<input class="form-control" type ="text" name="struct[speciality]">
+		</div>
+		<div class="form-group">
+			<label>Main Festival </label>
+			<input class="form-control" type ="text" name="struct[mainFestival]">			
+		</div>
+	<button class="mybtn" type="submit">Submit</button>
+	<button class="mybtn" type="reset">Reset</button>
+	</form>
+</div>
+<% include templates/footer %>

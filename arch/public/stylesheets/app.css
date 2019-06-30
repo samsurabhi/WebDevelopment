@@ -19,12 +19,13 @@ body{
 		}	
 .media{
 	border: 1px solid #ffcdd2;
+	border-bottom: 8px solid #fbe9e7;
 }			
 #showmainimg{
-	float:right; height:200px;
+	float:right; heigh:200px;
 }
 #showsubimg{
-	float:left; height:150px;
+	float:left; width:250px;
 }
 #navimg{height:100px; width:140px; float:right;}
 #indeximg{height:200px;}
@@ -42,7 +43,7 @@ textarea.form-control{
 	height:300px;
 }
 select{
-	width:150px; height:35px;
+	width:180px; height:35px;
 }
 
 

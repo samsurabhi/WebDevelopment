@@ -1,0 +1,36 @@
+<!-- Show Details of SELECTED CATEGORY -->
+
+<% include templates/header %>
+
+<div class="container">
+	<div class="jumbotron">
+		<h1><%=struct.name%></h1>
+	</div>
+
+	<div class="row">
+		<div class="col-md-2">
+			<a href="/index/<%=struct._id%>/edit_struct">
+				<button class="mybtn">Edit</button>
+			</a>
+			<form action="/index/<%=struct._id%>?_method=DELETE" method="POST">
+				<button class="mybtn" type="submit">Delete</button>
+			</form>
+			<a href="/index/">
+				<button class="mybtn">Back</button>
+			</a>
+		</div>
+		<div class="col-md-10">
+
+			<img style="float:left; height:300px; padding-right:5px;" src="/<%=struct.images%>">
+			<h6><span class="label label-success">Built-in <%=struct.builtIn%></span></h6>
+			<h4>Architecure and Specialities</h4>
+			<p><%=struct.arch_type%></p>
+			<p><%=struct.speciality%></p>
+			<strong>Location:</strong> <%=struct.location%><br>
+			<strong>Festivals:</strong><%=struct.mainFestival%><br>
+		</div>
+	</div>
+</div>
+
+<% include templates/footer %>
+

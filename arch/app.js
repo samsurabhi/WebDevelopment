@@ -1,4 +1,4 @@
-// WEBSITE WITH TWO COLLECTIONS --> CATEGORIES AND TEMPLES 
+// WEBSITE WITH TWO COLLECTIONS --> CATEGORIES AND STRUCTS 
 //MAIN INDEX PAGE WILL SHOW ALL CATEGORIES
 
 var express = require("express");
@@ -28,12 +28,12 @@ app.use(function(req,res,next){
 })
 
 
-mongoose.connect("mongodb://localhost:32017/temples",{useNewUrlParser:true});
+mongoose.connect("mongodb://localhost:32017/architectures",{useNewUrlParser:true});
 
 //DEFINE SCHEMAS FOR CATEGORIES AND PLACES IN MODELS DIR AND GET THEM HERE
 
 var Category = require("./models/categories");
-var Temple = require("./models/temples");
+var Struct = require("./models/structs");
 
 //DEFINE HOME PAGE FUNCTION
 app.get("/", function(req,res){
@@ -41,7 +41,15 @@ app.get("/", function(req,res){
 })
 //INDEX PAGE SHOWING ALL CATEGORIES
 app.get("/index", function(req,res){
-	Category.find({}, function(err, categories){
+	var search = req.query.search;
+	if (search == undefined){
+		req.flash("message","No matching records found.")
+		search = {};
+	} else {
+		search = {cateName:{$regex:search, $options: "ig"}}
+	}
+
+	Category.find(search, function(err, categories){
 		if(err)
 			console.log(err);
 		else
@@ -65,61 +73,20 @@ app.post("/index", function(req, res){
 		}
 	})
 })
-
-//DELETE CATEGORY AND ALL ASSOCIATED PLACES
-app.delete("/index/:id/delete", function(req, res){
-	Temple.remove({category:req.body.cateName}, function(err){
-		Category.findByIdAndRemove(req.params.id, function(err){
-			if(err){
-					req.flash('message', "Error while deleting. Could not delete.");
-					res.redirect("/index");
-				}
-				else{
-					req.flash('message',"Deleted category.");
-					res.redirect("/index");
-					}
-				})
-			})
-		})	
-
-
-//=========================================================================================//
-//ADD NEW TEMPLE INTO CATEGORY --DISPLAY FORM 
-app.get("/index/new_temple", function(req, res){
-	Category.find({}, function(err, data){
-		if(err)
-			console.log(err)
-		else
-			res.render("new_temple", {categories:data});
-	})
-	
-})
-//ADD DATA FROM FORM TO TEMPLE  COLLECTION
-app.post("/index/new_temple", function(req, res){
-	Temple.create(req.body.temple, function(err, data){
-		if(err)
-			console.log(err)
-		else{
-			req.flash("message","Added New Place.")
-			res.redirect("/index");
-		}
-	})
-})
-//=========================================================================================//
-
+//============================================================================================//
 //SHOW PAGE SHOWING DEATILS OF SPECIFIC CATEGORY, GET ID, FINDBYID, PASS FOUND, SHOWS LIST OF PLACES IN THAT CATEGORY
-
 app.get("/index/:id", function(req, res){
 	Category.findById(req.params.id, function(err, data){
 		if(err)
 			console.log(err)
 		else{
 			var selectedCate = data.cateName;
-			Temple.find({category:selectedCate}, function(err, selectedCate){
+			Struct.find({category:{$in:[selectedCate]}}, function(err, selectedCate){
 				if(err)
 					console.log(err)
-				else
+				else{
 					res.render("show", {category: data, selectedCate: selectedCate});	
+				}
 			})
 			
 		}
@@ -128,7 +95,7 @@ app.get("/index/:id", function(req, res){
 })
 
 //=========================================================================================//
-//EDIT CATEGORY --SHOWS PREPOPULATED FORM TO BE SUBMITTED, GET ID, PASS IT, USE IT IN FORM
+//EDIT/UPDATE CATEGORY --SHOWS PREPOPULATED FORM TO BE SUBMITTED, GET ID, PASS IT, USE IT IN FORM
 app.get("/index/:id/edit", function(req, res){
 	var editMe = req.params.id;
 	Category.findById(editMe, function(err, editMe){
@@ -154,11 +121,56 @@ app.put("/index/:id", function(req, res){
 		}
 	})
 })
+
+//==========================================================================================//
+//DELETE CATEGORY AND ALL ASSOCIATED PLACES
+app.delete("/index/:id/delete", function(req, res){
+	Struct.remove({category:req.body.cateName}, function(err){
+		Category.findByIdAndRemove(req.params.id, function(err){
+			if(err){
+					req.flash('message', "Error while deleting. Could not delete.");
+					res.redirect("/index");
+				}
+				else{
+					req.flash('message',"Deleted category.");
+					res.redirect("/index");
+					}
+				})
+			})
+		})	
+
+
 //=========================================================================================//
-//SHOW SELECTED TEMPLE
-app.get("/index/:id/show_temple", function(req,res){
+//			STRUCTURE ROUTES
+//=========================================================================================//
+
+//ADD NEW STRUCT INTO CATEGORY --DISPLAY FORM 
+app.get("/index/new_struct", function(req, res){
+	Category.find({}, function(err, data){
+		if(err)
+			console.log(err)
+		else
+			res.render("new_struct", {categories:data});
+	})
+	
+})
+//ADD DATA FROM FORM TO STRUCT  COLLECTION
+app.post("/index/new_struct", function(req, res){
+	Struct.create(req.body.struct, function(err, data){
+		if(err)
+			console.log(err)
+		else{
+			req.flash("message","Added New Place.")
+			res.redirect("/index");
+		}
+	})
+})
+
+//=========================================================================================//
+//SHOW SELECTED STRUCT
+app.get("/index/:id/show_struct", function(req,res){
 	var showMe = req.params.id;
-	Temple.findById(showMe, function(err, temple){
+	Struct.findById(showMe, function(err, struct){
 		if(err){
 			console.log(err);
 			req.flash("message","Error occured");
@@ -166,30 +178,27 @@ app.get("/index/:id/show_temple", function(req,res){
 			
 		}
 		else
-			res.render("show_temple",{temple:temple} );
+			res.render("show_struct",{struct:struct} );
 	})
 
 })
-
-
 //=========================================================================================//
-//EDIT TEMPLE -- SHOWS FORM TO BE EDITED
-app.get("/index/:id/edit_temple", function(req,res){
+//EDIT STRUCT -- SHOWS FORM TO BE EDITED
+app.get("/index/:id/edit_struct", function(req,res){
 	var editMe = req.params.id;
-	Temple.findById(editMe, function(err, data){
+	Struct.findById(editMe, function(err, data){
 		if(err)
 			console.log(err);
 		else
-			res.render("edit_temple", {editMe: data})
+			res.render("edit_struct", {editMe: data})
 	})
 	
 })
 
-//UPDATE TEMPLE
-app.put("/index/:id/edit_temple", function(req,res){
+//UPDATE STRUCT
+app.put("/index/:id/edit_struct", function(req,res){
 	var editedMe = req.params.id;
-	console.log("Temple to edit:" + editedMe)
-	Temple.findByIdAndUpdate(req.params.id, req.body.temple, function(err, edited){
+	Struct.findByIdAndUpdate(req.params.id, req.body.struct, function(err, edited){
 		if(err){
 			req.flash("message","Error while updating structure");
 			console.log(err);
@@ -197,17 +206,15 @@ app.put("/index/:id/edit_temple", function(req,res){
 		}
 		else{
 			req.flash("message","Updated place information.")
-			res.redirect("/index/" + req.params.id + "/show_temple");
+			res.redirect("/index/" + req.params.id + "/show_struct");
 		}
 	})
 })
 
-
-
 //=========================================================================================//
-//DELETE TEMPLE
+//DELETE STRUCT
 app.delete("/index/:id", function(req, res){
-	Temple.findByIdAndRemove(req.params.id, req.body.temple, function(err){
+	Struct.findByIdAndRemove(req.params.id, req.body.struct, function(err){
 		if(err)
 			console.log(err)
 		else{
