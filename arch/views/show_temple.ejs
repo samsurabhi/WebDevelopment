@@ -4,9 +4,9 @@
 
 <div class="container">
 	<div class="jumbotron">
-		<!--<img id="navimg" src="https://www.photosforclass.com/download/flickr-31804634594"> -->
-		<h1><%=temple.name%></h1>
+		<h1><%=temple.name%><%=temple.images%></h1>
 	</div>
+
 	<div class="row">
 		<div class="col-md-2">
 			<a href="/index/<%=temple._id%>/edit_temple">
@@ -15,8 +15,12 @@
 			<form action="/index/<%=temple._id%>?_method=DELETE" method="POST">
 				<button class="mybtn">Delete</button>
 			</form>
+			<a href="/index/">
+				<button class="mybtn">Back</button>
+			</a>
 		</div>
 		<div class="col-md-10">
+<img id="showmainimg" src="<%=temple.images%>">
 			<img style="float:left; height:300px; padding-right:5px;" src="<%=temple.images%>">
 			<h6><span class="label label-success">Built-in <%=temple.builtIn%></span></h6>
 			<h4>Architecure and Specialities</h4>
