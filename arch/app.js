@@ -43,17 +43,16 @@ app.get("/", function(req,res){
 app.get("/index", function(req,res){
 	var search = req.query.search;
 	if (search == undefined){
-		req.flash("message","No matching records found.")
 		search = {};
 	} else {
 		search = {cateName:{$regex:search, $options: "ig"}}
 	}
-
 	Category.find(search, function(err, categories){
 		if(err)
 			console.log(err);
-		else
+		else{
 			res.render("index", {categories:categories})
+		}
 	})
 })
 //=========================================================================================//
@@ -124,7 +123,7 @@ app.put("/index/:id", function(req, res){
 
 //==========================================================================================//
 //DELETE CATEGORY AND ALL ASSOCIATED PLACES
-app.delete("/index/:id/delete", function(req, res){
+app.delete("/index/:id", function(req, res){
 	Struct.remove({category:req.body.cateName}, function(err){
 		Category.findByIdAndRemove(req.params.id, function(err){
 			if(err){
@@ -145,7 +144,7 @@ app.delete("/index/:id/delete", function(req, res){
 //=========================================================================================//
 
 //ADD NEW STRUCT INTO CATEGORY --DISPLAY FORM 
-app.get("/index/new_struct", function(req, res){
+app.get("/struct/new", function(req, res){
 	Category.find({}, function(err, data){
 		if(err)
 			console.log(err)
@@ -155,7 +154,7 @@ app.get("/index/new_struct", function(req, res){
 	
 })
 //ADD DATA FROM FORM TO STRUCT  COLLECTION
-app.post("/index/new_struct", function(req, res){
+app.post("/struct", function(req, res){
 	Struct.create(req.body.struct, function(err, data){
 		if(err)
 			console.log(err)
@@ -168,7 +167,7 @@ app.post("/index/new_struct", function(req, res){
 
 //=========================================================================================//
 //SHOW SELECTED STRUCT
-app.get("/index/:id/show_struct", function(req,res){
+app.get("/struct/:id", function(req,res){
 	var showMe = req.params.id;
 	Struct.findById(showMe, function(err, struct){
 		if(err){
@@ -184,7 +183,7 @@ app.get("/index/:id/show_struct", function(req,res){
 })
 //=========================================================================================//
 //EDIT STRUCT -- SHOWS FORM TO BE EDITED
-app.get("/index/:id/edit_struct", function(req,res){
+app.get("/struct/:id/edit", function(req,res){
 	var editMe = req.params.id;
 	Struct.findById(editMe, function(err, data){
 		if(err)
@@ -196,7 +195,7 @@ app.get("/index/:id/edit_struct", function(req,res){
 })
 
 //UPDATE STRUCT
-app.put("/index/:id/edit_struct", function(req,res){
+app.put("/struct/:id", function(req,res){
 	var editedMe = req.params.id;
 	Struct.findByIdAndUpdate(req.params.id, req.body.struct, function(err, edited){
 		if(err){
@@ -206,14 +205,14 @@ app.put("/index/:id/edit_struct", function(req,res){
 		}
 		else{
 			req.flash("message","Updated place information.")
-			res.redirect("/index/" + req.params.id + "/show_struct");
+			res.redirect("/struct/" + req.params.id );
 		}
 	})
 })
 
 //=========================================================================================//
 //DELETE STRUCT
-app.delete("/index/:id", function(req, res){
+app.delete("/struct/:id", function(req, res){
 	Struct.findByIdAndRemove(req.params.id, req.body.struct, function(err){
 		if(err)
 			console.log(err)
@@ -225,7 +224,88 @@ app.delete("/index/:id", function(req, res){
 	})
 
 })
+//===================================================
+//ADD NEW STRUCT INTO CATEGORY --DISPLAY FORM 
+// app.get("/index/new_struct", function(req, res){
+// 	Category.find({}, function(err, data){
+// 		if(err)
+// 			console.log(err)
+// 		else
+// 			res.render("new_struct", {categories:data});
+// 	})
+	
+// })
+// //ADD DATA FROM FORM TO STRUCT  COLLECTION
+// app.post("/index/new_struct", function(req, res){
+// 	Struct.create(req.body.struct, function(err, data){
+// 		if(err)
+// 			console.log(err)
+// 		else{
+// 			req.flash("message","Added New Place.")
+// 			res.redirect("/index");
+// 		}
+// 	})
+// })
 
+// //=========================================================================================//
+// //SHOW SELECTED STRUCT
+// app.get("/index/:id/show_struct", function(req,res){
+// 	var showMe = req.params.id;
+// 	Struct.findById(showMe, function(err, struct){
+// 		if(err){
+// 			console.log(err);
+// 			req.flash("message","Error occured");
+// 			res.redirect("/index");
+			
+// 		}
+// 		else
+// 			res.render("show_struct",{struct:struct} );
+// 	})
+
+// })
+// //=========================================================================================//
+// //EDIT STRUCT -- SHOWS FORM TO BE EDITED
+// app.get("/index/:id/edit_struct", function(req,res){
+// 	var editMe = req.params.id;
+// 	Struct.findById(editMe, function(err, data){
+// 		if(err)
+// 			console.log(err);
+// 		else
+// 			res.render("edit_struct", {editMe: data})
+// 	})
+	
+// })
+
+// //UPDATE STRUCT
+// app.put("/index/:id/edit_struct", function(req,res){
+// 	var editedMe = req.params.id;
+// 	Struct.findByIdAndUpdate(req.params.id, req.body.struct, function(err, edited){
+// 		if(err){
+// 			req.flash("message","Error while updating structure");
+// 			console.log(err);
+// 			res.redirect("/index/");
+// 		}
+// 		else{
+// 			req.flash("message","Updated place information.")
+// 			res.redirect("/index/" + req.params.id + "/show_struct");
+// 		}
+// 	})
+// })
+
+// //=========================================================================================//
+// //DELETE STRUCT
+// app.delete("/index/:id", function(req, res){
+// 	Struct.findByIdAndRemove(req.params.id, req.body.struct, function(err){
+// 		if(err)
+// 			console.log(err)
+// 		else{
+// 			req.flash("message","Deleted Place");
+// 			res.redirect("/index");
+
+// 		}
+// 	})
+
+// })
 
 //START NODE SERVER
 const PORT = process.env.PORT || 3005;

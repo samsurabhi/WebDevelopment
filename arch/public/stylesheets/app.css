@@ -38,7 +38,8 @@ body{
 .mybtn:hover{
 				background:#914f4f; color:#6295a2;
 		}	
-a{ color:#6295a2;}		
+a{ color:#6295a2;}
+
 textarea.form-control{
 	height:300px;
 }

@@ -6,6 +6,12 @@
 		<h1>Ancient Architectures</h1>
 		<h5><i>...of places of worships<i></h5>
 	</div>
+	<% if(categories.length == 0){%>
+	<header class="container alert alert-info">
+		<h4>No matching records found <a href="/index"><sub><small>back</small></sub></a></h4>
+	</header>
+	
+	<% } else {%>
 	<div class="row">
 		<%categories.forEach(function(cate){ %>
 		<div class="col-lg-3 col-md-4">
@@ -21,6 +27,7 @@
 		</div>	
 		<% })%>
 	</div>
+	<% } %>
 </div>
 
 <% include templates/footer %>

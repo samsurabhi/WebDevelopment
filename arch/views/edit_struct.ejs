@@ -9,7 +9,7 @@
 
 
 <div class="container">
-	<form  action="/index/<%=editMe._id%>/edit_struct?_method=PUT" method="POST">
+	<form  action="/struct/<%=editMe._id%>?_method=PUT" method="POST">
 		
 		<div class="form-group">
 			<label>Category:</label>
@@ -45,8 +45,8 @@
 		</div>
 	<button class="mybtn" type="submit">Submit</button>
 	<button class="mybtn" type="reset">Reset</button>
-	<a class="align-bottom " href="/index/<%=editMe._id%>/show_struct">
-		<button class="mybtn" >Back</button>
+	<a class="align-bottom " href="/struct/<%=editMe._id%>">
+		<button class="mybtn" form=null >Back</button>
 	</a>
 	</form>
 
