@@ -1,4 +1,4 @@
-// WEBSITE WITH TWO COLLECTIONS --> CATEGORIES AND STRUCTS 
+//ANCIENT ARCHITECTURES WEBSITE   
 //MAIN INDEX PAGE WILL SHOW ALL CATEGORIES
 
 var express = require("express");
@@ -27,8 +27,9 @@ app.use(function(req,res,next){
 	next();
 })
 
+const DATABASEURL = process.env.ARCH_DATABASEURL;
+mongoose.connect(DATABASEURL, {useNewUrlParser:true});
 
-mongoose.connect("mongodb://localhost:32017/architectures",{useNewUrlParser:true});
 
 //DEFINE SCHEMAS FOR CATEGORIES AND PLACES IN MODELS DIR AND GET THEM HERE
 
@@ -224,88 +225,7 @@ app.delete("/struct/:id", function(req, res){
 	})
 
 })
-//===================================================
-//ADD NEW STRUCT INTO CATEGORY --DISPLAY FORM 
-// app.get("/index/new_struct", function(req, res){
-// 	Category.find({}, function(err, data){
-// 		if(err)
-// 			console.log(err)
-// 		else
-// 			res.render("new_struct", {categories:data});
-// 	})
-	
-// })
-// //ADD DATA FROM FORM TO STRUCT  COLLECTION
-// app.post("/index/new_struct", function(req, res){
-// 	Struct.create(req.body.struct, function(err, data){
-// 		if(err)
-// 			console.log(err)
-// 		else{
-// 			req.flash("message","Added New Place.")
-// 			res.redirect("/index");
-// 		}
-// 	})
-// })
 
-// //=========================================================================================//
-// //SHOW SELECTED STRUCT
-// app.get("/index/:id/show_struct", function(req,res){
-// 	var showMe = req.params.id;
-// 	Struct.findById(showMe, function(err, struct){
-// 		if(err){
-// 			console.log(err);
-// 			req.flash("message","Error occured");
-// 			res.redirect("/index");
-			
-// 		}
-// 		else
-// 			res.render("show_struct",{struct:struct} );
-// 	})
-
-// })
-// //=========================================================================================//
-// //EDIT STRUCT -- SHOWS FORM TO BE EDITED
-// app.get("/index/:id/edit_struct", function(req,res){
-// 	var editMe = req.params.id;
-// 	Struct.findById(editMe, function(err, data){
-// 		if(err)
-// 			console.log(err);
-// 		else
-// 			res.render("edit_struct", {editMe: data})
-// 	})
-	
-// })
-
-// //UPDATE STRUCT
-// app.put("/index/:id/edit_struct", function(req,res){
-// 	var editedMe = req.params.id;
-// 	Struct.findByIdAndUpdate(req.params.id, req.body.struct, function(err, edited){
-// 		if(err){
-// 			req.flash("message","Error while updating structure");
-// 			console.log(err);
-// 			res.redirect("/index/");
-// 		}
-// 		else{
-// 			req.flash("message","Updated place information.")
-// 			res.redirect("/index/" + req.params.id + "/show_struct");
-// 		}
-// 	})
-// })
-
-// //=========================================================================================//
-// //DELETE STRUCT
-// app.delete("/index/:id", function(req, res){
-// 	Struct.findByIdAndRemove(req.params.id, req.body.struct, function(err){
-// 		if(err)
-// 			console.log(err)
-// 		else{
-// 			req.flash("message","Deleted Place");
-// 			res.redirect("/index");
-
-// 		}
-// 	})
-
-// })
 
 //START NODE SERVER
 const PORT = process.env.PORT || 3005;
